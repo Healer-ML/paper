@@ -2,6 +2,8 @@
 
 [返回三方向论文总览](README.md) · [跨模态检索目录](../README.md) · [微表情识别目录](micro-expression-recognition.md)
 
+[跨领域计数专题：开放计数、遥感计数与类无关计数](counting-research.md)
+
 **检索截止：2026-10-11。** 本表聚焦农业田间、果园、葡萄园、温室及采收作业场景中的果实计数，重点覆盖 2024–2026。检索采用多轮关键词检索与引文追溯，并逐项核对出版商论文页、作者/实验室论文页或 arXiv 原文；代码链接仅在论文、作者页或明确的作者 GitHub 仓库核验后列出。
 
 ## 纳入标准与标记
@@ -46,7 +48,7 @@
 | [Twice matched fruit counting system: An automatic fruit counting pipeline in modern apple orchard using mutual and secondary matches](https://www.sciencedirect.com/science/article/pii/S1537511023001885) | 利用互匹配与二次匹配降低跨帧 ID 切换和重复计数，给出现代苹果园果数估计。（范围：A） | Biosyst. Eng. | 未核验 |
 | [Real-time tracking and counting of grape clusters in the field based on channel pruning with YOLOv5s](https://www.sciencedirect.com/science/article/pii/S0168169923000509) | 剪枝轻量化 YOLOv5s 并结合视频跟踪，实现田间葡萄串实时计数。（范围：A） | CEA | 未核验 |
 | [Semi-supervised Counting of Grape Berries in the Field Based on Density Mutual Exclusion](https://www.sciopen.com/article/10.34133/plantphenomics.0115) | 半监督密度图计数，设计密度互斥约束以缓解浆果密集重叠。（范围：A） | Plant Phenomics | [Code](https://github.com/youth-tang/CDMENet-main) |
-| [Instance Segmentation and Berry Counting of Table Grape before Thinning Based on AS-SwinT](https://www.sciopen.com/article/10.34133/plantphenomics.0085) | Swin Transformer 实例分割葡萄粒，并回归单穗果数，用于疏果前评估。（范围：A） | Plant Phenomics | 未核验 |
+| [Instance Segmentation and Berry Counting of Table Grape before Thinning Based on AS-SwinT](https://www.sciopen.com/article/10.34133/plantphenomics.0085) | Swin Transformer 实例分割葡萄粒，并回归单穗果数，用于疏果前评估。（范围：A） | Plant Phenomics | [作者仓库含代码压缩包](https://github.com/AWEN975/AS-SwinT)；未验证本地复现 |
 | [Tomato cluster detection and counting using improved YOLOv5 based on RGB-D fusion](https://www.sciencedirect.com/science/article/pii/S0168169923001291) | 融合 RGB-D 检测番茄簇，并以 ByteTrack 与计数区域消除重复；机器人实测平均计数准确率 95.1%。（范围：A） | CEA | 未核验 |
 | [An efficient online citrus counting system for large-scale unstructured orchards based on the unmanned aerial vehicle](https://onlinelibrary.wiley.com/doi/10.1002/rob.22147) | 无人机在线采集非结构化果园图像，跟踪并计数柑橘，针对跟踪失误设计非均匀分布计数器。（范围：A） | J. Field Robot. | 未核验 |
 | [Tree-level citrus yield prediction utilizing ground and aerial machine vision and machine learning](https://www.sciencedirect.com/science/article/pii/S2772375522000429) | 融合无人机树体特征与地面单/双侧柑橘计数，建立树级产量预测。（范围：B） | SAT | 未核验 |
@@ -96,11 +98,14 @@
 | [Uncertainty-driven semi-supervised learning for phenology-aware apple flower counting](https://www.sciencedirect.com/science/article/pii/S0168169925010257) | 基于物候与不确定性引导半监督学习统计无人机苹果花量。（范围：P） | CEA | 未核验 |
 | [Deep learning and georeferenced RGB-D imaging for hydroponic strawberry yield mapping](https://www.sciencedirect.com/science/article/pii/S2772375525005246) | 结合 RGB-D 和地理定位为水培草莓建立产量图，并与人工果数比较。（范围：A/B） | SAT | 未核验 |
 | [Improving passion fruit yield estimation with multi-scale feature fusion and density-attention mechanisms in smart agriculture](https://www.sciencedirect.com/science/article/pii/S0168169925010646) | 以多尺度特征和密度注意力处理百香果密集目标并回归树级数量/产量。（范围：A/B） | CEA | 未核验 |
+| [A Dynamic Kalman Filtering Method for Multi-Object Fruit Tracking and Counting in Complex Orchards](https://pmc.ncbi.nlm.nih.gov/articles/PMC12252135/) | 将改进 YOLOv8n、动态遗忘因子 Kalman 滤波与 IoU/Re-ID 关联结合，在复杂果园视频中持续跟踪并计数；论文报告计数 R²=0.85、RMSE=1.57。（范围：A） | Sensors | [论文数据可用性声明中的作者代码](https://github.com/zhaiyaning/Fruit_Tacking) |
+| [Apple phenotyping using deep learning and 3D depth analysis: An experimental study on fruitlet sizing during early development](https://www.sciencedirect.com/science/article/pii/S2772375525001972) | 结合 RGB-D 视频、YOLO 与深度信息，对苹果幼果簇进行计数和直径测量；属于早期负载代理，论文报告平均计数误差 0.63 个幼果/视频。（范围：P/A） | Smart Agric. Technol. | [作者代码与数据处理流程](https://github.com/checolag/apple-fruitlet-detection-and-sizing) |
 
 ## 2026（截至 2026-10-11）
 
 | 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
 | --- | --- | --- | --- |
+| [Benchmarking Dense and Indiscernible Object Counting with Blueberries](https://proceedings.mlr.press/v306/bo26a.html) | 提出 DIOCblueberry 蓝莓密集、遮挡与背景近似计数基准及 MaskCount；利用 CLIP 伪掩膜抑制背景、对比学习区分蓝莓与叶片，并以边缘感知裁剪缓解切块漏计。（直接果实计数） | ICML | 数据集：[DIOCblueberry](https://huggingface.co/datasets/weihao-bo/DIOCblueberry)；未找到可访问的官方模型代码 |
 | [Low-annotation apple flower counting: A color-SAM enhanced and uncertainty-guided semi-supervised framework](https://www.sciencedirect.com/science/article/pii/S2643651526000270) | Color-SAM 与不确定性引导半监督密度估计用于少标注苹果花计数。（范围：P） | Plant Phenomics | [Code](https://github.com/haohuihui5019/USCount-Net) |
 | [Accurate counting of small and dense Chinese cherry in natural orchard via fruit-oriented perception and sharpening network](https://www.sciencedirect.com/science/article/abs/pii/S0168169926005041) | FOPSN 密度图计数网络针对小目标、黏连和自然果园复杂背景优化。（范围：A） | CEA | 未核验 |
 | [YOLO11-SBS: leveraging ACE and ORCM to gauge robust and accurate apple counting in complex orchards](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2026.1841916/full) | 改进 YOLO11 在复杂果园图像中检测并统计苹果，重点关注遮挡和背景干扰。（范围：A） | Front. Plant Sci. | 未核验 |
@@ -110,7 +115,9 @@
 | [Tomato Maturity Classification and Fruit Counting Based on RGB and Multispectral Images](https://www.mdpi.com/2076-3417/16/7/3227) | 检测-跟踪去重后按 RGB/多光谱特征识别成熟度并统计不同成熟阶段的番茄数量。（范围：A） | Appl. Sci. | 未核验 |
 | [Simultaneous Maturity Recognition and Yield Counting of Truss and Individual Tomatoes Using Improved YOLOv8-EME and Optimized ByteTrack Tracker](https://www.mdpi.com/2311-7524/12/10/1199) | YOLOv8-EME 与优化 ByteTrack 同时识别番茄串、单果成熟度并分别计数。（范围：A） | Horticulturae | 未核验 |
 | [A lightweight multi-view detection and counting method for real-time cherry tomato yield estimation using greenhouse inspection robots](https://www.sciencedirect.com/science/article/pii/S2772375526004843) | 面向巡检机器人的轻量检测-跟踪-计数-补偿管线，使用多视角信息减少遮挡导致的漏计。（范围：A/B） | SAT | 未核验 |
-| [Video-based fruit detection and tracking: effects of scanning conditions on fruit load estimation](https://doi.org/10.1016/j.compag.2026.112330) | 在 420 棵苹果树上比较 RGB-D 相机、扫描距离、日期和单/双侧扫描对视频计数、采收真值与负载图的影响。（范围：A/B） | CEA | 未核验 |
+| [Video-based fruit detection and tracking: effects of scanning conditions on fruit load estimation](https://doi.org/10.1016/j.compag.2026.112330) | 在 420 棵苹果树上比较 RGB-D 相机、扫描距离、日期和单/双侧扫描对视频计数、采收真值与负载图的影响。（范围：A/B） | CEA | [论文数据/代码声明所列作者仓库](https://github.com/imatge-upc/VideoFruitCounting) |
+| [BerryFlowerNet: A Customized Convolutional Neural Network for Blueberry Flower Cluster Detection and Flowering Stage Prediction with a Field Phenotyping Robot](https://www.mdpi.com/2077-0472/16/11/1159) | 以田间表型机器人采集蓝莓从花蕾至绿果阶段图像，检测并计数花簇、预测花期；属成熟果计数前的生殖负载代理。（范围：P） | Agriculture | [作者实验室代码与数据](https://github.com/UGA-BSAIL/BerryFlowerNet) |
+| [Unified Multi-Level Grape Counting Framework with Low Annotation Cost for Natural Orchard Scenes](https://doi.org/10.3390/app16157500) | UniGC 统一完成可见葡萄粒点计数、葡萄串检测/计数及逐串粒数估计，训练仅需点和框标注。（范围：A） | Appl. Sci. | [作者代码与数据](https://github.com/xiaofengxie-dl/UniGC) |
 
 ## 边界案例：不纳入主表或仅作邻近参考
 
@@ -119,6 +126,7 @@
 - **[A Seamless Deep Learning Approach for Apple Detection, Depth Estimation, and Tracking Using YOLO Models Enhanced by Multi-Head Attention Mechanism](https://www.mdpi.com/2073-431X/13/3/83)**，*Computers* 13(3), 83 (2024), DOI [10.3390/computers13030083](https://doi.org/10.3390/computers13030083)：主要做检测、深度与跟踪；未确认独立果数评估，故不作为直接计数论文。
 - **[MFFT: an improved method for stable ID tracking and counting of multi-class mango segmentation with multi-feature fusion in complex occlusion scenarios](https://www.sciencedirect.com/science/article/pii/S0168169926007441)**，*CEA* 253, 112149 (2026-10)：出版商页面目前可见，摘要报告计数相对误差 4.30%、生物量估计误差 4.49%，并给出 Google Drive 代码和数据；但页面只精确到 2026 年 10 月，未显示具体上线日，因此无法判断是否在 2026-10-11 截止日前正式上线。作为**截止日边界记录**保留，不计入截至日主表。[Code + 数据（Google Drive）](https://drive.google.com/file/d/1UzvgiqlXn-C2aJZsHmcLAWSYaVYA0bnH/view?usp=sharing)
 - **[Adapting SAM3 for 3D fruit counting with cross-view contrastive learning and Hough voting](https://www.sciencedirect.com/science/article/pii/S0168169926009233)**，*CEA* 112325：页面显示为 2026 年 12 月，晚于本次截止日，排除；虽有作者公开代码 [SAM3-3DFruit](https://github.com/kkk0216/SAM3-3DFruit)，不代表论文已在截止日前发表。
+- **年份口径说明：** *A precise berry counting method for in-cluster grapes to guide berry thinning* 按期刊卷期/DOI 年列在 2025；其在线发表日期为 2026-01-09。按卷期口径的主表归类不变，若按首次在线日期筛选则应视为 2026。
 - 苹果花、花簇、花蕾、幼果论文列在主表但标为 **P**，因为它们对疏花疏果/早期负载有用，却不能与成熟果实计数混为一类。
 
 ## 2026 果园估产综述（背景阅读；不计入原始研究篇数）
