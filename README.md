@@ -1,42 +1,11 @@
-# Healer-ML 研究论文索引
-
-跨模态检索 · 果实计数 · 微表情识别
-
-## 研究方向导航
-
-### 01 · 跨模态检索
-
-图文与多模态检索、遥感图文检索、文本行人检索、组合图像检索及视频文本检索。论文条目包含原题、摘要中文释义、期刊/会议简称、年份和公开代码链接。
-
-**导航：** [专题目录](#cross-modal) · [2021（22篇）](#year-2021) · [2022（27篇）](#year-2022) · [2023（26篇）](#year-2023) · [2024（72篇）](#year-2024) · [2025（93篇）](#year-2025) · [2026（92篇）](#year-2026)
-
----
-
-### 02 · 果实计数
-
-覆盖开放计数、果园与田间果实计数、浆果计数、遥感/无人机计数、跨帧去重及计数驱动的估产；正式论文与预印本分别标注。
-
-**导航：** [专题首页与年度目录（2021–2026）](papers/fruit-counting.md) · [2021](papers/fruit-counting.md#2021) · [2022](papers/fruit-counting.md#2022) · [2023](papers/fruit-counting.md#2023) · [2024](papers/fruit-counting.md#2024) · [2025](papers/fruit-counting.md#2025)
-
----
-
-### 03 · 微表情识别
-
-聚焦微表情识别、时空建模、跨数据库泛化，以及数据集、采集设备与帧率信息。
-
-**导航：** [论文目录](papers/micro-expression-recognition.md#论文目录) · [数据集与采集信息](papers/micro-expression-recognition.md#数据集与采集信息) · [专题首页](papers/micro-expression-recognition.md)
-
----
+# Healer-ML 论文目录
 
 <a id="cross-modal"></a>
+<details>
+<summary>跨模态检索 · 年度论文目录</summary>
 
-## 跨模态检索 · 年度论文目录
+**按年：** [2021 · 22篇](#year-2021) · [2022 · 27篇](#year-2022) · [2023 · 26篇](#year-2023) · [2024 · 72篇](#year-2024) · [2025 · 93篇](#year-2025) · [2026 · 92篇](#year-2026)
 
-图文、多模态、遥感图文、文本行人、组合图像与视频文本检索。正式出版信息以出版方记录为准，并区分预印本与正式发表版本。最近核对：2026-10-02。
-
-**按年跳转：** [2021 · 22篇](#year-2021) · [2022 · 27篇](#year-2022) · [2023 · 26篇](#year-2023) · [2024 · 72篇](#year-2024) · [2025 · 93篇](#year-2025) · [2026 · 92篇](#year-2026)
-
----
 
 <details id="year-2021">
 <summary>2021 · 22 篇</summary>
@@ -667,5 +636,21 @@
 | Deep Discriminative Structure Proxy Hashing for Cross-modal Retrieval | 以结构化语义代理组织类别关系，并对比正负响应学习更清晰的汉明空间决策边界。 | ICML | [Code](https://github.com/QinLab-WFU/DDSPH) |
 | Deep Global-sense Hard-negative Discriminative Generation Hashing for Cross-modal Retrieval | 通过图关系传播捕获全局样本结构，并自适应生成语义一致的困难负例，强化跨模态哈希空间的判别边界。 | ICLR | [Code](https://github.com/QinLab-WFU/DGHDGH) |
 | Deep Uncertainty-aware Probabilistic Hashing for Cross-modal Retrieval | 以概率哈希建模输入质量和语义歧义带来的不确定性，避免不完整或退化模态造成二值表示偏移。 | TOMM | [Code](https://github.com/QinLab-WFU/DUaPH) |
+
+</details>
+
+</details>
+
+<details>
+<summary>果实计数 · 年度论文目录</summary>
+
+[进入果实计数专题目录](papers/fruit-counting.md)
+
+</details>
+
+<details>
+<summary>微表情识别 · 论文目录</summary>
+
+[进入微表情识别专题目录](papers/micro-expression-recognition.md)
 
 </details>
