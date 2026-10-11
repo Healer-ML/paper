@@ -1,10 +1,73 @@
-# 农业/田间果实计数论文调研（2021–2026）
+# 果实计数目录：农业应用与跨领域计数（2021–2026）
 
 [返回三方向论文总览](README.md) · [跨模态检索目录](../README.md) · [微表情识别目录](micro-expression-recognition.md)
 
 [跨领域计数专题：开放计数、遥感计数与类无关计数](counting-research.md)
 
-**检索截止：2026-10-11。** 本表聚焦农业田间、果园、葡萄园、温室及采收作业场景中的果实计数，重点覆盖 2024–2026。检索采用多轮关键词检索与引文追溯，并逐项核对出版商论文页、作者/实验室论文页或 arXiv 原文；代码链接仅在论文、作者页或明确的作者 GitHub 仓库核验后列出。
+**检索截止：2026-10-11。** 本目录按“应用场景”和“计数设定”两条轴组织：农业果实计数为本页逐年主表；遥感/航拍计数、开放词汇/开放世界计数、类无关/少样本及视频计数作为独立类别并列呈现。跨类别论文可同时具有应用与方法标签，但不重复计数。跨领域方法不等于已在果园数据上验证，农业果实结论只依据果园/田间研究。
+
+## 研究方向分类
+
+| 方向 | 收录边界 | 完整目录 |
+| --- | --- | --- |
+| 农业果实计数 | 果园、田间、温室、果实/果簇/浆果计数，以及明确报告数量的果树负载估计；花与幼果另标为早期负载代理 | [本页农业果实逐年表](#agricultural-fruit-annual-tables) |
+| 遥感/航拍计数 | 卫星、航空或无人机影像中的目标数量估计；仅检测而没有计数实验的不纳入 | [遥感与航拍目标计数完整清单](counting-research.md#remote-sensing-counting) |
+| 开放词汇/开放世界计数 | 以文本、视觉示例或二者共同指定任意/未见类别；纯文本零样本与示例提示分别标注 | [开放词汇与开放世界计数完整清单](counting-research.md#open-vocabulary-counting) |
+| 类无关/少样本计数 | 需要视觉示例、点/框提示或交互的通用计数；不与纯文本开放词汇混为一类 | [类无关、少样本与示例驱动计数](counting-research.md#class-agnostic-counting) |
+| 视频与评测基准 | 跨帧唯一实例计数、计数基准/数据集及计数推理；与单图密度图模型区分 | [视频计数](counting-research.md#video-counting) · [基准与推理](counting-research.md#counting-benchmarks) |
+
+下列折叠栏列出各方向的代表论文；完整分类目录继续保留逐篇题目、摘要（中文释义）、刊会简称/年份或预印本状态，以及代码核验结果。
+
+<details>
+<summary><strong>01 · 农业/田间果实计数</strong></summary>
+
+本页后续逐年表覆盖单图计数、检测与跟踪、跨帧去重、点/密度监督、多视角与 3D、果实负载/估产。花、花簇、花蕾和幼果作为早期负载代理单独标记，不与成熟果实计数混同。
+
+</details>
+
+<details>
+<summary><strong>02 · 遥感/卫星/航拍目标计数</strong></summary>
+
+| 论文题目 | 摘要（中文释义） | 刊会简称与年份 | 代码 |
+| --- | --- | --- | --- |
+| [Counting from Sky: A Large-Scale Data Set for Remote Sensing Object Counting and a Benchmark Method](https://doi.org/10.1109/TGRS.2020.3020555) | 建立卫星/航拍密集目标计数基准并提出密度图方法，覆盖建筑、船舶和车辆等目标。 | IEEE TGRS 2021 | [Code](https://github.com/gaoguangshuai/Counting-from-Sky-A-Large-scale-Dataset-for-Remote-Sensing-Object-Counting-and-A-Benchmark-Method) |
+| [IS-Count: Large-Scale Object Counting from Satellite Images with Covariate-Based Importance Sampling](https://ojs.aaai.org/index.php/AAAI/article/view/21462) | 用协变量引导的重要性抽样估计卫星影像中的区域目标总量，降低密集标注成本；属于区域总数估计，不是逐像素密度回归。 | AAAI 2022 | [Code](https://github.com/sustainlab-group/IS-Count) |
+| [RS-OVC: Open-Vocabulary Counting for Remote-Sensing Data](https://arxiv.org/abs/2604.08704) | 将文本/视觉提示式开放词汇计数扩展到遥感与航空影像，可计数训练中未见类别。 | ICPR 2026；arXiv 2026 | [Code](https://github.com/tamirshor7/RS-OVC) |
+| [See What We Cannot See: A Geo-guided Reasoning Benchmark for Object Counting under Adverse Earth Observation Conditions](https://openaccess.thecvf.com/content/CVPR2026/html/Wang_See_What_We_Cannot_See_A_Geo-guided_Reasoning_Benchmark_for_CVPR_2026_paper.html) | 发布 GROC 基准，研究云雾、阴影、低照等不利观测下如何结合地理辅助模态改善遥感计数；这是基准/推理工作，不是单一计数网络。 | CVPR 2026 | [Code 与基准](https://github.com/jwang-rs/GROC) |
+
+完整逐篇清单：[遥感与航拍目标计数](counting-research.md#remote-sensing-counting)。
+
+</details>
+
+<details>
+<summary><strong>03 · 开放词汇/开放世界计数</strong></summary>
+
+| 论文题目 | 摘要（中文释义） | 刊会简称与年份 | 代码 |
+| --- | --- | --- | --- |
+| [CountGD: Multi-Modal Open-World Counting](https://arxiv.org/abs/2407.04619) | 将文本描述、视觉示例或二者共同作为目标提示，把开放词汇检测基础模型改造为开放世界计数器。 | NeurIPS 2024 | [Code](https://github.com/niki-amini-naieni/CountGD) |
+| [CountSE: Soft Exemplar Open-set Object Counting](https://openaccess.thecvf.com/content/ICCV2025/html/Liu_CountSE_Soft_Exemplar_Open-set_Object_Counting_ICCV_2025_paper.html) | 从文本语义自动生成多尺度软示例，并用语义筛选与聚类过滤提升文本零样本开放集计数；不要求人工框选 exemplar。 | ICCV 2025 | [官方 Code](https://github.com/pppppz22/CountSE) |
+| [RT-Counter: Real-Time Text-Guided Open-Vocabulary Object Counting](https://arxiv.org/abs/2606.17561) | 通过视觉原型文本化与轻量交织注意力改善文本—目标对齐和推理速度；论文报告 FSC-147 上 112.48 FPS。 | arXiv 2026 预印本 | [作者 Code](https://github.com/Jason-Mar1/RT-Counter) |
+| [Open-World Object Counting in Videos](https://ojs.aaai.org/index.php/AAAI/article/view/37214) | 用文本或图像示例指定视频目标，结合计数、分割与跟踪，统计跨帧出现的唯一实例，并发布 VideoCount。 | AAAI 2026 | [官方 Code 与数据](https://github.com/niki-amini-naieni/CountVid) |
+
+**题名/编号校正：** arXiv:2606.17561 对应 RT-Counter，不是 CountSE；CountSE 是 ICCV 2025 论文，二者为不同工作且分别有代码仓库。完整分类还区分纯文本零样本、文本+视觉提示、开放视频计数及基准论文：[开放词汇/开放世界完整清单](counting-research.md#open-vocabulary-counting)。
+
+</details>
+
+<details>
+<summary><strong>04 · 类无关/少样本/示例驱动计数</strong></summary>
+
+| 论文题目 | 摘要（中文释义） | 刊会简称与年份 | 代码 |
+| --- | --- | --- | --- |
+| [Learning To Count Everything](https://openaccess.thecvf.com/content/CVPR2021/html/Ranjan_Learning_To_Count_Everything_CVPR_2021_paper.html) | 以少量视觉示例学习跨类别计数，是 FSC-147 与后续通用少样本计数工作的基础路线之一。 | CVPR 2021 | [作者 Code](https://github.com/cvlab-stonybrook/LearningToCountEverything) |
+| [A Novel Unified Architecture for Low-Shot Counting by Detection and Segmentation](https://proceedings.neurips.cc/paper_files/paper/2024/hash/7a0f8055c838df8e62329a76c7c6403d-Abstract-Conference.html) | GeCo 将检测、分割与计数统一到低样本架构中，用少量或无标注示例定位目标。 | NeurIPS 2024 | [官方 Code](https://github.com/jerpelhan/GeCo) |
+| [CountingDINO: A Training-free Pipeline for Class-Agnostic Counting using Unsupervised Backbones](https://openaccess.thecvf.com/content/WACV2026/html/Pacini_CountingDINO_A_Training-free_Pipeline_for_Class-Agnostic_Counting_using_Unsupervised_Backbones_WACV_2026_paper.html) | 利用无监督视觉特征与推理期示例原型实现无需计数训练数据的类无关计数，并在 FSC-147、CARPK 上评估。 | WACV 2026 | [官方 Code](https://github.com/lorebianchi98/CountingDINO) |
+
+完整分类与更多 2021–2026 论文：[类无关、少样本与示例驱动计数](counting-research.md#class-agnostic-counting)。视频、数据基准及邻近任务另见[专题目录](counting-research.md#video-counting)。
+
+</details>
+
+<a id="agricultural-fruit-annual-tables"></a>
+## 农业/田间果实计数：逐年论文表
 
 ## 纳入标准与标记
 

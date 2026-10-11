@@ -1,6 +1,6 @@
 # 计数研究专题：开放计数、遥感计数与农业果实计数
 
-[返回三方向论文总览](../README.md) · [农业果实计数年度表](fruit-counting.md)
+[返回三方向论文总览](../README.md) · [果实计数分类目录](fruit-counting.md)
 
 **检索截止：2026-10-11。** 本专题按任务设定和应用领域分别整理 2021–2026 年代表性及近期研究，重点补充开放词汇/开放世界计数、遥感目标计数和农业果实计数，并逐条核对论文出处与代码仓库。代码核验检查公开仓库、README、源码和训练/推理入口；“未找到”表示本轮未确认到公开官方实现，不等于证明作者没有代码。仓库可访问不等于环境已部署或结果已复现；数据集、评测脚本、部分实现与模型完整实现分别标注。
 
@@ -14,6 +14,7 @@
 - **应用领域**：遥感、农业是数据与场景维度，可以采用闭集、少样本或开放词汇方法。RS-OVC 等兼具领域和开放词汇属性，因此在相关类别交叉引用。
 - **邻近任务**：视频唯一目标计数、计数推理、计数条件图像生成与通用 MLLM 计数基准会注明其边界，不与单图密集计数混为一谈。
 
+<a id="open-vocabulary-counting"></a>
 ## 一、开放词汇 / 开放世界计数（文本指定为主，设定有别）
 
 ### 2021–2023：从类无关泛化走向文本指定
@@ -47,6 +48,7 @@
 | [Enhancing Zero-shot Object Counting via Text-guided Local Ranking and Number-evoked Global Attention (LGCount)](https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_Enhancing_Zero-shot_Object_Counting_via_Text-guided_Local_Ranking_and_Number-evoked_ICCV_2025_paper.html) | 以文本引导局部排序和数量感知全局注意力改善文本零样本计数，并构建 ZSC-8K。 | ICCV 2025 | [作者官方仓库](https://github.com/zaqai/LGCount)公开，含训练与评测脚本 `run.py`、模型和数据准备说明。 |
 | [YOLO-Count: Differentiable Object Counting for Text-to-Image Generation](https://openaccess.thecvf.com/content/ICCV2025/html/Zeng_YOLO-Count_Differentiable_Object_Counting_for_Text-to-Image_Generation_ICCV_2025_paper.html) | 将计数器用作文本生成图像的数量控制/可微监督模块；属于计数与生成交叉，不是通用开放计数基准上的独立计数模型。 | ICCV 2025（生成交叉） | [作者代码](https://github.com/mlpc-ucsd/YOLO-Count) |
 
+<a id="video-counting"></a>
 ### 2026：开放提示、细粒度意图与视频计数
 
 | 论文 | 主要内容（中文释义） | 刊会 / 年份 | 代码核验 |
@@ -68,6 +70,7 @@
 | [SAM3Count: Zero-Shot Open Vocabulary Counting in Images and Videos](https://openreview.net/pdf?id=t3NZw67uAM) | 使用 SAM3 对文本指定类别做图像/视频零样本计数，并支持大图切块；为 CVPR 相关 workshop 工作，不是 CVPR 主会论文。 | CVPRW 2026 | [作者仓库](https://github.com/Joan947/SAM3Count)公开推理/演示组件，完整训练代码标注待发布；属**部分实现**。 |
 | [The MixCount Dataset: Bridging the Data Gap for Open-Vocabulary Object Counting](https://arxiv.org/abs/2605.18063) | 针对同图多类、易混目标计数数据不足，构建合成混合目标图像与细粒度标注基准；论文侧重数据/训练资源，不是单一计数器。 | arXiv 2026 预印本 | [MixCount 数据集](https://huggingface.co/datasets/CorentinDumery/MixCount)公开；未确认到可访问的官方模型/生成代码仓库。 |
 
+<a id="remote-sensing-counting"></a>
 ## 二、遥感与航拍目标计数
 
 此类工作常见难点是超大幅面、小目标、尺度变化、地理域偏移和极少标注。除标明开放词汇的 RS-OVC 外，下表多数是闭集、跨域或少样本计数，不能直接当成“文本开放类别计数”。
@@ -110,9 +113,10 @@
 | [COBICount: Counting Objects in the Wild with Contextual Bias Mitigation](https://arxiv.org/abs/2609.39366) | 面向野外复杂背景和域变化的计数研究，包含遥感场景；论文计划发布代码，但截至截止日未找到公开仓库。 | arXiv 2026 预印本 | 未找到可访问的公开官方代码。 |
 | [VesselBench-800K: A Large-Scale Benchmark for Vessel Detection and Counting in Satellite Imagery](https://arxiv.org/abs/2609.37003) | 面向卫星船舶检测/计数的大规模数据基准，重点在数据与评测资源。 | arXiv 2026 预印本 | 论文承诺数据/代码资源；所指 [GitHub 仓库](https://github.com/danfenghong/IEEE_TGRS_VesselBench)核验时不可访问，故标为未公开可用。 |
 
+<a id="agricultural-fruit-counting"></a>
 ## 三、农业果实计数
 
-果实计数的细目（按年、摘要、期刊简称及逐项代码状态）集中维护在[农业果实计数年度表](fruit-counting.md)，避免在跨领域目录中重复整份果园文献清单。该表截至 2026-10-11 收录 74 篇直接计数/田间负载研究；其中花、花簇等生殖负载代理与成熟果实计数有单独标记。新增核验显示，代码“存在”不等于代码“可复现”：下表明确区分模型实现、数据/辅助脚本和未发现公开仓库。
+果实计数的细目（按年、摘要、期刊简称及逐项代码状态）集中维护在[农业果实计数年度表](fruit-counting.md#agricultural-fruit-annual-tables)，避免在跨领域目录中重复整份果园文献清单。该表截至 2026-10-11 收录 74 篇直接计数/田间负载研究；其中花、花簇等生殖负载代理与成熟果实计数有单独标记。新增核验显示，代码“存在”不等于代码“可复现”：下表明确区分模型实现、数据/辅助脚本和未发现公开仓库。
 
 | 论文 | 主要内容（中文释义） | 刊会 / 年份 | 代码核验 |
 |---|---|---|---|
@@ -126,6 +130,7 @@
 | [Mask-GK: An efficient method based on mask Gaussian kernel for segmentation and counting of grape berries in field](https://www.sciencedirect.com/science/article/pii/S0168169925003928) | 用 mask Gaussian kernel 表示葡萄粒实例，结合田间分割完成果粒计数。 | CEA 2025 | [作者代码](https://github.com/volcanoYcc/Mask-GK) |
 | [A precise berry counting method for in-cluster grapes to guide berry thinning](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2025.1739688/full) | 联合密度估计与果穗分割，估计整图和逐穗葡萄粒数量以支持疏果。 | Front. Plant Sci. 2025 | [作者代码](https://github.com/AWEN975/MVDNet_code) |
 
+<a id="class-agnostic-counting"></a>
 ## 四、类无关、示例驱动与弱监督计数（开放计数邻近方向）
 
 这些方法可能支持未见类别，但测试时通常需要示例、交互或图像级监督；与“输入新文本即可计数”的严格文本开放词汇定义不同。这里保留代表性工作，避免把 CAC/few-shot 统称为 zero-shot。
@@ -148,6 +153,7 @@
 | [OCCAM: Class-Agnostic, Training-Free, Prior-Free and Multi-Class Object Counting](https://arxiv.org/abs/2601.13871) | 利用 SAM2 与聚类尝试无训练、无示例的多类别类无关计数。 | arXiv 2026 预印本 | 论文给出代码/数据将公开的项目地址，但截至检索日未确认到可用实现：[OCCAM 项目页](https://mikespanak.github.io/OCCAM_counter)。 |
 | [Spatially-Aware Class-Agnostic Object Counting (UpCount)](https://arxiv.org/abs/2607.16826) | 通过多层 ViT 特征、空间细化与候选验证改善结构复杂目标的类无关计数。 | arXiv 2026 预印本 | [作者代码](https://github.com/r28112072-rgb/upcount) |
 
+<a id="counting-benchmarks"></a>
 ## 五、计数基准、推理与生成控制（邻近，不等同专用计数模型）
 
 | 论文 | 主要内容（中文释义） | 刊会 / 年份 | 代码核验 |

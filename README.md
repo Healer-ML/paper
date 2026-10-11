@@ -655,9 +655,11 @@
 ## 02 · 果实计数
 
 <details>
-<summary><strong>展开果实计数专题目录 · 74 篇（2021–2026）</strong></summary>
+<summary><strong>展开果实计数目录 · 农业/田间 74 篇 + 跨领域分类（2021–2026）</strong></summary>
 
-**跨领域计数专题：** [开放词汇/开放世界计数 · 遥感目标计数 · 果实计数与类无关计数](papers/counting-research.md)
+**分类导航：** [农业果实计数目录](papers/fruit-counting.md) · [遥感/航拍计数](papers/counting-research.md#remote-sensing-counting) · [开放词汇/开放世界计数](papers/counting-research.md#open-vocabulary-counting) · [类无关/少样本计数](papers/counting-research.md#class-agnostic-counting) · [视频计数](papers/counting-research.md#video-counting) · [数据集与评测基准](papers/counting-research.md#counting-benchmarks)
+
+**完整逐篇清单：** [论文摘要、刊会/年份与代码核验](papers/counting-research.md)
 
 **按年直达：** [2021 · 6 篇](#fruit-year-2021) · [2022 · 8 篇](#fruit-year-2022) · [2023 · 11 篇](#fruit-year-2023) · [2024 · 17 篇](#fruit-year-2024) · [2025 · 19 篇](#fruit-year-2025) · [2026 · 13 篇](#fruit-year-2026)
 
