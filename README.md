@@ -657,7 +657,7 @@
 <details>
 <summary><strong>展开果实计数目录 · 165 篇（农业、遥感、开放/类无关及相关基准，2021–2026）</strong></summary>
 
-**分类导航：** [农业果实计数目录](papers/fruit-counting.md) · [遥感/航拍计数](papers/counting-research.md#remote-sensing-counting) · [开放词汇/开放世界计数](papers/counting-research.md#open-vocabulary-counting) · [类无关/少样本计数](papers/counting-research.md#class-agnostic-counting) · [视频计数](papers/counting-research.md#video-counting) · [数据集与评测基准](papers/counting-research.md#counting-benchmarks)
+**分类导航：** [农业果实计数目录](papers/fruit-counting.md) · [各方向数据集与下载状态](papers/fruit-counting.md#datasets-by-direction) · [遥感/航拍计数](papers/counting-research.md#remote-sensing-counting) · [开放词汇/开放世界计数](papers/counting-research.md#open-vocabulary-counting) · [类无关/少样本计数](papers/counting-research.md#class-agnostic-counting) · [视频计数](papers/counting-research.md#video-counting) · [数据集与评测基准](papers/counting-research.md#counting-benchmarks)
 
 **完整逐篇清单：** [论文摘要、刊会/年份与代码核验](papers/counting-research.md)
 

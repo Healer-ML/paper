@@ -16,6 +16,75 @@
 | 类无关/少样本 | `【类无关/少样本】` | 依赖视觉示例、交互或弱监督的通用计数，不等同于文本零样本。详见[类无关计数专题](counting-research.md#class-agnostic-counting)。 |
 | 视频/基准/邻近 | `【视频计数】`、`【计数基准】`、`【计数推理】` | 年度表中保留并明确标注视频唯一目标、基准和生成控制等相邻工作。 |
 
+<a id="datasets-by-direction"></a>
+## 各方向常用数据集与下载状态
+
+**核验日期：2026-10-11。** 下表根据本目录收录论文及其官方项目页整理，给出可复用的数据集入口；并非每篇论文都使用本表全部数据。`可直接下载`表示官方托管页提供数据文件或下载入口；`部分公开/有条件`表示需要账号、遵守许可、从原始数据源重建，或部分标注/测试集受限；`未确认`表示目前没有核验到稳定的公开数据包。代码仓库存在，不代表数据集本身公开。
+
+**方向直达：** [农业果实](#dataset-agriculture) · [遥感/航拍](#dataset-remote-sensing) · [开放词汇/指代表达](#dataset-open) · [类无关/少样本](#dataset-class-agnostic) · [视频/序列](#dataset-video)
+
+<a id="dataset-agriculture"></a>
+### 农业果实计数、估产与三维计数
+
+| 数据集 | 对应论文/任务 | 下载状态与入口 |
+| --- | --- | --- |
+| **MinneApple** | 苹果检测、单图计数/密度估计；本目录中的苹果果园计数工作常用基准。 | **可直接下载。** [明尼苏达大学数据仓库项目页](https://rsn.umn.edu/projects/orchard-monitoring/minneapple)；[计数补丁集](https://conservancy.umn.edu/bitstream/handle/11299/206575/counting.tar.gz?sequence=1&isAllowed=y)、[检测集](https://conservancy.umn.edu/bitstream/handle/11299/206575/detection.tar.gz?sequence=2&isAllowed=y)、[测试数据](https://conservancy.umn.edu/bitstream/handle/11299/206575/test_data.zip?sequence=16&isAllowed=y)；[作者代码](https://github.com/nicolaihaeni/MinneApple)。 |
+| **ACFR Orchard / Multi-Fruit** | 苹果、芒果、杏仁等果园图像；检测、树上果数估计及产量相关研究。 | **可直接下载（按页面许可使用）。** [悉尼大学 ACFR 数据页](https://data.acfr.usyd.edu.au/ag/treecrops/2016-multifruit/)。该资源是果园多果种图像集，不应等同于统一的密度图计数基准。 |
+| **BlueberryDCM** | 蓝莓冠层图像中的果实检测、成熟度识别和计数；对应 2024 年蓝莓计数论文。 | **可直接下载。** [Zenodo 数据记录](https://zenodo.org/records/14002517)（BlueberryDCM.7z）；[论文配套代码](https://github.com/vicdxxx/BlueberryDetectionAndCounting)。数据页记录的是 140 张 RGB 图像及框标注，使用时以该版本说明为准。 |
+| **DIOCblueberry** | ICML 2026 蓝莓密集、遮挡及叶片干扰计数；含点计数与示例框标注。 | **可直接下载。** [Hugging Face 数据集页](https://huggingface.co/datasets/weihao-bo/DIOCblueberry)；页面提供数据预览与文件访问。 |
+| **MetaFruit** | 多物种果实负载估计；对应 *Multi-Species Fruit-Load Estimation Using Deep Learning Models*，覆盖五类果实。 | **公开但需 Kaggle 账号/遵守平台条款。** [MetaFruit 数据集页](https://www.kaggle.com/datasets/jiajiali/metafruit)。论文使用的数据版本和标注口径应以论文及 Kaggle 页面为准。 |
+| **FruitNeRF Real / Synthetic** | 多视角果实重建、跨视角去重与三维果实计数；FruitNeRF / FruitNeRF++。 | **可直接下载，体积较大。** [Zenodo 数据记录](https://zenodo.org/records/10869455)：真实数据约 19.1 GB、合成数据约 7.8 GB；[项目代码](https://github.com/meyerls/fruitnerf)。 |
+
+本目录收录的苹果、柑橘、猕猴桃、番茄等不少田间论文使用作者自采果园/温室图像或视频。若论文/作者页没有公开数据声明，本表不把它们标成“不可下载”，而是视为**未确认公开**；这类数据通常需联系论文作者获取。
+
+<a id="dataset-remote-sensing"></a>
+### 遥感/航拍目标计数
+
+| 数据集 | 对应论文/任务 | 下载状态与入口 |
+| --- | --- | --- |
+| **RSOC / Counting from Sky** | 遥感图像多类目标密度估计与计数；本目录收录的 Counting from Sky 基准及后续遥感计数研究。 | **部分公开。** [作者数据/代码仓库](https://github.com/gaoguangshuai/Counting-from-Sky-A-Large-scale-Dataset-for-Remote-Sensing-Object-Counting-and-A-Benchmark-Method)提供建筑子集下载入口；其他子集部分依赖 DOTA 源数据及仓库提供的文件清单。建筑子集：[百度网盘](https://pan.baidu.com/s/19hL7O1sP_u2r9LNRsFSjdA)，提取码 `nwcx`。 |
+| **NWPU-MOC** | 航拍车辆、船舶等细粒度多类别计数；对应 TGRS 2024 基准及后续遥感计数论文。 | **可下载，需按镜像要求访问。** [作者官方仓库及数据说明](https://github.com/lyongo/NWPU-MOC)；[Google Drive 数据入口](https://drive.google.com/file/d/1AHOBAzOag0jlH3cLjukXdMYsCJhYaiOi/view?usp=drive_link)，仓库另列百度网盘镜像。 |
+| **RSVC2021** | 有限分辨率遥感车辆密度计数；用于数据生成/评测的影像与密度图资源。 | **部分公开/需按说明重建。** [作者数据生成仓库](https://github.com/YinongGuo/RSVC2021-Dataset)。这是数据与生成脚本入口，不是对应论文的模型代码包；可能需要准备其依赖的源影像。 |
+| **CARPK / PUCPR+** | 无人机视角车辆计数；常作为航拍密集计数和类无关计数迁移评测集。 | **可下载，需遵守数据许可。** [作者项目页及下载入口](https://lafi.github.io/LPN/)。这是车辆计数基准，不是农田作物或果实计数数据。 |
+| **GROC** | CVPR 2026 地球观测恶劣天气/成像条件下的地理辅助计数与推理基准。 | **公开下载，部分标签受限。** [Hugging Face 数据集](https://huggingface.co/datasets/jwang-rs/GROC)（页面标注数据约 42.9 GB）；[作者项目/代码](https://github.com/jwang-rs/GROC)。测试标签未全部公开，需按项目说明联系作者。 |
+| **DOTA / DIOR / FAIR1M（RS-OVC 使用）** | RS-OVC 等开放词汇遥感计数方法将目标检测数据转换为计数/点标注评测。 | **源数据可分别获取，但不是专门计数集。** [DOTA 官方页](https://captain-whu.github.io/DOTA/dataset.html)、[DIOR OpenDataLab](https://opendatalab.com/OpenDataLab/DIOR)、[FAIR1M 国家对地观测数据页](https://www.noda.ac.cn/datasharing/datasetDetails/666fe818d67b985a5113eb26)；再运行 [RS-OVC 转换与实验流程](https://github.com/tamirshor7/RS-OVC)。各数据集许可和申请条件独立。 |
+
+<a id="dataset-open"></a>
+### 开放词汇、零样本与指代表达计数
+
+| 数据集 | 对应论文/任务 | 下载状态与入口 |
+| --- | --- | --- |
+| **FSC-147** | 通用类无关/少样本计数的核心基准，也常用于文本开放计数和零样本方法评测。 | **可下载。** [作者官方仓库及图像下载说明](https://github.com/cvlab-stonybrook/LearningToCountEverything)；[FSC-147 图像](https://drive.google.com/file/d/1ymDYrGs9DSRicfZbSCDiOu0ikGDh5k6S/view?usp=sharing)、[密度图/标注镜像](https://archive.org/details/FSC147-GT)。 |
+| **FSC-147-D** | 在 FSC-147 上增加文本描述/目标名称，用于文本条件开放计数（如 CounTX）。 | **标注可从项目仓库获取；图像复用 FSC-147。** [CounTX 作者仓库](https://github.com/niki-amini-naieni/CounTX)；[项目页](https://robots.ox.ac.uk/~vgg/research/countx/)。 |
+| **FSC-133** | 从 FSC-147 清洗、重构得到的通用计数训练/评测版本；用于开放类别与少样本方法。 | **可按仓库说明获取。** [Learning to Count Anything 项目及数据说明](https://github.com/ActiveVisionLab/LearningToCountAnything)。 |
+| **REC-8K** | CVPR 2024 指代表达计数：按属性、动作、上下文表达指定同类中的目标。 | **部分公开。** [作者代码、标注与预处理说明](https://github.com/sydai/referring-expression-counting)；仓库提供标注/数据准备脚本，但部分原始图像受上游数据许可限制，需从原数据集下载后重建。 |
+| **ZSC-8K** | ICCV 2025 LGCount 文本零样本计数基准。 | **标注/生成脚本随项目提供，图像依赖上游数据源。** [LGCount 官方仓库](https://github.com/zaqai/LGCount)；按其 `util/generate_npy.py` 和数据说明准备。未核验到独立、完整的图像压缩包。 |
+| **PairTally** | 细粒度意图计数基准，测试文本指定的目标子类是否被准确区分。 | **可按项目页下载。** [作者基准与评测仓库](https://github.com/bbvisual/PairTally_Benchmark)。 |
+| **CoCount** | ECCV 2026 CountEx 基准，针对相似类的正例/排除式细粒度计数。 | **可直接下载。** [CoCount Hugging Face 数据集集合](https://huggingface.co/collections/BBVisual/cocount)；[训练集页面](https://huggingface.co/datasets/BBVisual/CoCount-train)及其他拆分见集合页。 |
+| **MixCount** | 多类别混合场景的开放词汇计数数据集，含细粒度标注。 | **可直接下载。** [Hugging Face 数据集页](https://huggingface.co/datasets/CorentinDumery/MixCount)。 |
+| **CLOC** | Count Anything 跨域开放计数，覆盖通用、遥感、农业、病理、细胞与微生物等领域。 | **部分公开。** [项目页](https://mengqi-lei.github.io/count-anything-projectpage/)说明数据/标注与可再分发子集；[作者仓库](https://github.com/Mengqi-Lei/count-anything)。部分图像来自受原始许可约束的数据集，需依照说明从源头获取并重建。 |
+
+<a id="dataset-class-agnostic"></a>
+### 类无关/少样本计数
+
+| 数据集 | 对应论文/任务 | 下载状态与入口 |
+| --- | --- | --- |
+| **FSC-147 / FSC-133** | 视觉示例条件下的通用计数、跨类少样本泛化；也被开放词汇方法复用。 | **可下载。** 入口见上方 [FSC-147](#dataset-open) 与 [FSC-133](#dataset-open) 条目。不同论文可能采用原始版、清洗版或不同划分，复现实验时需核对 split。 |
+| **MCAC** | 多数据集类无关计数，带类别/中心/框/遮挡等信息，评估跨场景和跨类别泛化。 | **可直接下载。** [MCAC 官方项目页与数据包](https://mcac.active.vision/)；[数据 ZIP](https://www.robots.ox.ac.uk/~lav/Datasets/MCAC/MCAC.zip)。 |
+| **CARPK / PUCPR+** | 少样本/类无关方法迁移至航拍车辆计数的评测。 | **可下载，车辆域。** 入口见上方 [CARPK / PUCPR+](#dataset-remote-sensing) 条目。 |
+
+<a id="dataset-video"></a>
+### 视频与跨帧去重计数
+
+| 数据集 | 对应论文/任务 | 下载状态与入口 |
+| --- | --- | --- |
+| **NeSTCount** | 2026 多物种移动相机田间序列计数，含葡萄柚、Sugar Belle、番茄和 Valencia 橙；用于跨帧去重、遮挡及移动视角评估。 | **数据包可下载，约 10.3 GB；原始帧有条件。** [Zenodo 数据记录](https://zenodo.org/records/21636487)提供公开数据文件；部分 raw frames 未随包分发，须按记录说明向作者申请。 |
+| **CaseStudy / SensitivityAnalysis** | 苹果果园多序列视频/图像计数和扫描条件敏感性研究。 | **可下载。** [CaseStudy（Zenodo）](https://zenodo.org/records/7384297)；[SensitivityAnalysis（Zenodo）](https://zenodo.org/records/7383338)。下载体积较大，具体文件和真值版本见各记录页。 |
+| **VideoCount / TAO-Count** | CountVid 的开放世界视频计数与唯一目标跨帧跟踪；TAO-Count 等公开视频源用于视频评测。 | **代码与部分标注可从作者仓库取得；原视频受上游条款约束。** [CountVid 官方仓库](https://github.com/niki-amini-naieni/CountVid)，依照 README 从对应源数据下载视频。 |
+| **RGBD-VideoCount** | RGB-D 拥挤视频中的深度辅助计数与跨帧去重。 | **可直接下载。** [Hugging Face 数据集](https://huggingface.co/datasets/aerospace123/RGBD-VideoCount)；[论文配套代码](https://github.com/streamer-AP/DG-Net)。 |
+
+**快速选集建议：** 做果园单图计数可先看 MinneApple、BlueberryDCM、DIOCblueberry；做跨品种负载估计可看 ACFR 与 MetaFruit；做多视角/三维计数可看 FruitNeRF；做遥感计数可从 RSOC、NWPU-MOC 或 GROC 入手；开放计数通常从 FSC-147 起步，再按任务选择 REC-8K、CoCount 或 MixCount；视频果园计数优先检查 NeSTCount 和苹果序列数据。不同数据集的标注粒度（框、点、密度图、视频轨迹）、许可、划分与计数口径并不统一，不能仅凭数据集名称直接横向比较。
+
 每年仅保留一张四列表格（题目、中文摘要、刊会简称、代码）；以下年度数已计入所有类别。年度表中农业果实原有 **74 篇**完整保留；其它方向不再放在年度表外重复展示。代码状态按作者/论文关联仓库核验，数据集资源不冒充模型代码。
 
 <a id="agricultural-fruit-annual-tables"></a>
