@@ -1,10 +1,18 @@
-# Healer-ML 论文目录
+<div align="center">
+<h1>Healer-ML 研究论文库</h1>
+<p><strong>Research Paper Library · 2021–2026</strong></p>
+<p><a href="#cross-modal">跨模态检索</a>　·　<a href="#fruit-counting">果实计数</a>　·　<a href="#micro-expression">微表情识别</a></p>
+</div>
+
+---
 
 <a id="cross-modal"></a>
-<details>
-<summary>跨模态检索 · 年度论文目录</summary>
+## 01 · 跨模态检索
 
-**按年：** [2021 · 22篇](#year-2021) · [2022 · 27篇](#year-2022) · [2023 · 26篇](#year-2023) · [2024 · 72篇](#year-2024) · [2025 · 93篇](#year-2025) · [2026 · 92篇](#year-2026)
+<details>
+<summary><strong>展开年度论文目录 · 332 篇（2021–2026）</strong></summary>
+
+**按年直达：** [2021 · 22篇](#year-2021) · [2022 · 27篇](#year-2022) · [2023 · 26篇](#year-2023) · [2024 · 72篇](#year-2024) · [2025 · 93篇](#year-2025) · [2026 · 92篇](#year-2026)
 
 
 <details id="year-2021">
@@ -641,16 +649,26 @@
 
 </details>
 
-<details>
-<summary>果实计数 · 年度论文目录</summary>
+---
 
-[进入果实计数专题目录](papers/fruit-counting.md)
+<a id="fruit-counting"></a>
+## 02 · 果实计数
+
+<details>
+<summary><strong>展开果实计数专题目录 · 69 篇（2021–2026）</strong></summary>
+
+[进入果实计数专题目录 →](papers/fruit-counting.md)
 
 </details>
 
-<details>
-<summary>微表情识别 · 论文目录</summary>
+---
 
-[进入微表情识别专题目录](papers/micro-expression-recognition.md)
+<a id="micro-expression"></a>
+## 03 · 微表情识别
+
+<details>
+<summary><strong>展开论文与数据集导航</strong></summary>
+
+[论文目录](papers/micro-expression-recognition.md#论文目录)　·　[数据集与采集信息](papers/micro-expression-recognition.md#数据集与采集信息)
 
 </details>
