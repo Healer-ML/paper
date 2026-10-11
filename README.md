@@ -1,20 +1,35 @@
 <div align="center">
 
-# 跨模态检索论文地图
+# 研究方向与论文索引
 
-**Cross-Modal Retrieval Papers & Open-Source Code**
+**Research Areas & Curated Paper Collections**
 
-![Coverage](https://img.shields.io/badge/coverage-2021--2026-2563eb?style=for-the-badge)
-![Papers](https://img.shields.io/badge/papers-332-16a34a?style=for-the-badge)
-![Code](https://img.shields.io/badge/code-publicly%20available-f59e0b?style=for-the-badge)
-
-**按年份折叠 · 按研究方向浏览 · 论文题目 · 摘要 · 刊会 · 开源代码**
+![Topics](https://img.shields.io/badge/research%20areas-3-2563eb?style=for-the-badge)
+![Coverage](https://img.shields.io/badge/coverage-2021--2026-16a34a?style=for-the-badge)
+![Cross-modal papers](https://img.shields.io/badge/cross--modal%20papers-332-f59e0b?style=for-the-badge)
 
 </div>
 
-> 收录图文、多模态、组合图像、遥感图文、文本行人、视频文本及相关检索论文；优先纳入公开代码，并以论文/出版方页面和作者仓库核对题录。展开年份即可浏览对应方向与论文。最近核对：2026-10-02。
+> 本仓库按研究主题整理论文，提供题目、摘要（中文释义）、期刊/会议简称、年份及公开代码链接。目录用于学术交流与文献发现；正式出版信息以论文或出版方页面为准，预印本与正式发表版本应以原始来源区分。
 
-> 研究方向：**跨模态检索**（本页，332 篇） · [果实计数](papers/fruit-counting.md) · [微表情识别](papers/micro-expression-recognition.md) · [三方向总览](papers/README.md)
+## 研究方向
+
+| 方向 | 收录范围 | 目录与当前状态 |
+|---|---|---|
+| **跨模态检索** | 图文、多模态、组合图像、遥感图文、文本行人、视频文本及相关检索 | [浏览 2021–2026 论文目录](#year-2021) · 当前目录 332 篇 |
+| **果实计数** | 果实检测与计数、密度/点监督、田间场景及跨品种泛化 | [进入方向页](papers/fruit-counting.md) · 暂无已核验条目 |
+| **微表情识别** | 微表情检测与识别、时空建模、跨数据库评测及数据集 | [进入方向页](papers/micro-expression-recognition.md) · 当前收录 1 篇 |
+
+## 收录与标注规范
+
+- 按研究主题和发表年份组织；年份折叠栏内再按问题类型分组。
+- 每篇论文列出原文题目、摘要中文释义、期刊/会议简称和代码链接；年份由所属年份分区标注。
+- 仅在来源可追溯时记录出版信息；预印本、正式发表版本及代码可用状态以对应来源为准。
+- 方向页暂未整理完成时明确标示，不以空目录或未核验记录暗示已有完整覆盖。
+
+## 跨模态检索论文目录
+
+收录范围包括图文检索、多模态图文检索、遥感图文检索、文本行人检索、组合图像/视频检索及视频文本检索。展开年份栏查看条目；最近核对日期：2026-10-02。
 
 | [2021 · 22篇](#year-2021) | [2022 · 27篇](#year-2022) | [2023 · 26篇](#year-2023) | [2024 · 72篇](#year-2024) | [2025 · 93篇](#year-2025) | [2026 · 92篇](#year-2026) |
 |---|---|---|---|---|---|
