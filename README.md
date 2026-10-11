@@ -1,42 +1,6 @@
-<div align="center">
+# 跨模态检索 · 年份导航
 
-# 研究论文索引
-
-<p><em>Research Papers · Curated by Topic</em></p>
-<p>跨模态检索　·　果实计数　·　微表情识别</p>
-
-![研究方向](https://img.shields.io/badge/研究方向-3-315C8C?style=flat-square)
-![跨模态检索](https://img.shields.io/badge/跨模态检索-2021--2026-52796F?style=flat-square)
-![论文条目](https://img.shields.io/badge/跨模态论文-332-B7793E?style=flat-square)
-
-</div>
-
-## 研究方向 · Research Areas
-
-<table>
-<tr>
-<td width="34%" valign="top">
-<h3>01 · 跨模态检索</h3>
-<p>图文与多模态检索、遥感图文检索、文本行人检索，以及组合图像和视频文本检索。</p>
-<p><strong>332 篇 · 2021–2026</strong></p>
-<p><a href="#cross-modal">浏览论文目录 →</a></p>
-</td>
-<td width="33%" valign="top">
-<h3>02 · 果实计数</h3>
-<p>果实检测与计数、密度/点监督、田间场景及跨品种泛化。</p>
-<p><strong>专题页 · 暂无已核验条目</strong></p>
-<p><a href="papers/fruit-counting.md">进入方向页 →</a></p>
-</td>
-<td width="33%" valign="top">
-<h3>03 · 微表情识别</h3>
-<p>微表情检测与识别、时空建模、跨数据库评测及数据集。</p>
-<p><strong>专题页 · 当前收录 1 篇</strong></p>
-<p><a href="papers/micro-expression-recognition.md">进入方向页 →</a></p>
-</td>
-</tr>
-</table>
-
-## 跨模态检索 · 年份导航
+**其他研究方向：** [果实计数（69 篇）](papers/fruit-counting.md) · [微表情识别](papers/micro-expression-recognition.md) · [三方向索引](papers/README.md)
 
 图文、多模态、遥感图文、文本行人、组合图像与视频文本检索。每篇条目提供原题、摘要（中文释义）、期刊/会议简称与公开代码链接；正式出版信息以出版方记录为准，并区分预印本与正式发表版本。最近核对：2026-10-02。
 
