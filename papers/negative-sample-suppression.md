@@ -1,105 +1,68 @@
-# 负样本抑制与干扰物排除：目标计数方法专题
+# 跨模态对齐中的负样本抑制：假负样本识别与噪声鲁棒学习
 
-[返回果实计数目录](fruit-counting.md) · [返回三方向论文总览](README.md) · [跨领域计数与开放计数专题](counting-research.md)
+[返回三方向论文总览](README.md) · [跨模态检索年度目录](../README.md#cross-modal) · [研究论文导航](README.md)
 
-**检索截止：2026-10-12。** 本专题调研视觉计数中利用负样本、负提示、反例或候选验证来减少误计的现有方法，优先列出会议论文并核对论文/作者仓库中的代码状态；随后补充期刊、农业直接相关工作与评测基准。论文摘要为中文释义，不是逐字翻译。代码状态按论文官方页面、作者项目页或其明确关联仓库核验；“未找到/未核验”仅表示本次检索没有确认到公开实现，不断言代码绝对不存在。
+**检索与代码核验截止：2026-10-12。** 本专题聚焦图文/视觉语言检索中的假负样本（false negatives, FNs）：训练时未被标注为配对、却与锚点语义相关的图像—文本对。主表优先收录明确处理假负样本的会议论文；另列错误正配对/噪声对应方法，因为它们常被泛称为“负样本抑制”，但问题定义并不相同。中文摘要为内容释义。代码状态只在论文页、作者主页或与论文明确关联的作者仓库中核验；“本次未找到”不等于证明代码从未发布。
 
-## 研究问题与范围
+## 问题边界：先分清标签错在哪一边
 
-本调研聚焦三个问题：
+| 问题 | 训练标签实际情况 | 典型后果 | 本专题如何归类 |
+| --- | --- | --- | --- |
+| **假负样本（FN）** | 未配对样本被当作负例，但两者实际语义相关/可检索 | 对比损失把语义相近样本推远，损害召回与语义结构 | **主线：识别、重标、降权或跳过假负样本** |
+| **噪声正配对 / 假正例（FP）** | 被标为正例的图文对实际不匹配 | 错误配对把不同语义拉近 | 相邻问题：筛除、校正或重新匹配错误正例 |
+| **局部负证据** | 词语—区域等局部片段确实不匹配 | 用错局部对应会抬高整对相似度 | 相关但不同：将不匹配片段作为判别线索，不代表全局假负样本抑制 |
 
-1. 负证据在计数流程的哪个环节发挥作用：输入提示、训练/特征学习、候选验证，还是背景先验？
-2. 哪些会议方法有可访问代码，公开程度和可复现边界如何？
-3. 这些方法迁移到农业果实计数时，能否抑制叶片、枝梗、果帽、未成熟果及相似品种造成的误计？
+因此，论文标题中出现 *negative*、方法涉及 *noisy correspondence*，并不自动表示它解决了假负样本。尤其是 noisy correspondence 工作往往重点是**错误正配对**；下文明确分栏，避免混作同一类。例如 [Negative-Aware Attention Framework for Image-Text Matching（CVPR·2022）](https://openaccess.thecvf.com/content/CVPR2022/html/Zhang_Negative-Aware_Attention_Framework_for_Image-Text_Matching_CVPR_2022_paper.html) 用局部词语—区域错配作为匹配判别证据，[作者代码](https://github.com/CrossmodalGroup/NAAF)可用；它不是全局假负样本抑制方法。
 
-检索覆盖 2021–2026 年，关键词组合包括 negative exemplar/sample/prompt、exclusion、distractor、hard negative、false positive verification、background suppression、fine-grained counting、fruit counting；按论文官方会议/出版社页面与作者仓库逐项交叉检查。纳入直接改变计数模型排除干扰物能力的工作；将只作评测、只抑制背景、或只筛选正例的工作单列，不把它们误称为显式负样本计数。本文没有找到 2021–2022 年可核验、同时以负 exemplars/负提示为核心且有代码的主流计数会议论文；这表示检索范围内未检出，不代表该时期绝无相关工作。
+## 一、直接处理假负样本：核心论文与代码
 
-## 一、方法分类：不要把“负样本抑制”混为一谈
+| 论文（会议简称·年份） | 摘要与方法要点（中文释义） | 代码核验 |
+| --- | --- | --- |
+| [Your Negative May not Be True Negative: Boosting Image-Text Matching with False Negative Elimination](https://arxiv.org/abs/2308.04380) — **ACM MM·2023** | 针对图文匹配中“高相似未配对样本可能是假负例”的问题，FNE 根据锚点与样本的相似度估计正、负分布，再用贝叶斯后验作为负样本抽样权重；动量记忆库扩大候选负例范围，并降低简单负例权重以保留真正困难的负例。重点是**风险感知采样**，而非简单删除所有高相似样本。 | [作者代码仓库](https://github.com/LuminosityX/FNE)；仓库含训练、评估与损失实现。**已核验** |
+| [Integrating Language Guidance Into Image-Text Matching for Correcting False Negatives](https://ieeexplore.ieee.org/abstract/document/10081045) — **TMM·2024**（2023 在线发表） | 将语言预训练模型用于发现标注为负、但可能语义匹配的图像；通过 Language Guidance Loss 自适应修正这些样本在视觉—语义嵌入空间中的位置。作者还在经过人工校正假负标注的 ECCV Caption 上验证模型找回相关样本的能力。 | [作者官方 PyTorch 实现](https://github.com/AAA-Zheng/LG_ITM)。**已核验** |
+| [Cross-Modal and Uni-Modal Soft-Label Alignment for Image-Text Retrieval](https://ojs.aaai.org/index.php/AAAI/article/view/29789) — **AAAI·2024** | CUSA 从单模态预训练模型获取软标签，以 Cross-modal Soft-label Alignment（CSA）补充跨模态匹配关系，并以 Uni-modal Soft-label Alignment（USA）保存图像或文本内部的语义邻近关系；论文明确将其用于缓解假负样本造成的语义损失。方法可插入既有图文检索模型。 | [论文页提供的作者代码](https://github.com/lerogo/aaai24_itr_cusa)。**已核验** |
+| [Improved Probabilistic Image-Text Representations](https://proceedings.iclr.cc/paper_files/paper/2024/hash/ad9d6ab10446114cf5482d5e1f971a84-Abstract-Conference.html) — **ICLR·2024** | PCME++ 用概率嵌入刻画图文匹配的不确定性与多重语义，改进概率距离以避免蒙特卡洛计算负担；进一步引入 pseudo-positives，缓解大量假负样本对匹配损失的伤害。论文在 MS-COCO、CxC、ECCV Caption 评测，并测试噪声对应鲁棒性。 | [NAVER AI 官方代码](https://github.com/naver-ai/pcmepp)。**已核验** |
+| [MAFA: Managing False Negatives for Vision-Language Pre-training](https://openaccess.thecvf.com/content/CVPR2024/html/Byun_MAFA_Managing_False_Negatives_for_Vision-Language_Pre-training_CVPR_2024_paper.html) — **CVPR·2024** | 面向网络采集图文数据天然存在的一对多语义关系，先通过 connection mining 找出未标注的相关配对并将假负例转为正例，再对图文对比损失使用 label smoothing；结合分组小批次采样，改善视觉语言预训练，并考察下游检索等任务。 | [作者官方实现](https://github.com/jaeseokbyun/MAFA)；CVPR 论文页也给出仓库。**已核验** |
+| [False Negatives Consensus Suppression for Text-to-Image Person Re-identification](https://doi.org/10.1109/ICME59968.2025.11209807) — **ICME·2025** | 面向文本搜行人图像，指出同一行人或语义高度相近的行人描述可能被当作负例。FNCD 以双粒度线索一致检测潜在假负样本，AFNS 再按样本自适应调整其相似度权重，以减轻错误排斥对细粒度图文对齐的影响。 | 检索到 IEEE 论文记录；**本次未找到可确认的作者公开代码仓库**。不把第三方目录或相似项目记作官方代码。 |
+| [TriSim: Tri-Dimensional Similarity Modeling with Extreme Value Theory for False-Negative Mitigation in Remote Sensing Image-Text Retrieval](https://openaccess.thecvf.com/content/CVPR2026/html/Zheng_TriSim_Tri-Dimensional_Similarity_Modeling_with_Extreme_Value_Theory_for_False-Negative_CVPR_2026_paper.html) — **CVPR·2026** | 面向遥感图文检索，联合建模图—图、图—文、文—文三种相似度，避免仅凭单一跨模态阈值识别假负例；通过 Mahalanobis 距离与极值理论拟合尾部分布筛选候选，再用概率权重控制 triplet loss，并通过模态内显著区域差异强化判别特征。 | CVPR 官方论文页目前列出论文/PDF，未列代码；**本次未找到可确认的作者公开代码仓库**。 |
 
-| 类别 | 负证据进入的位置 | 代表机制 | 主要抑制的错误 | 与果实场景的关系 |
+## 二、相邻但不同：错误正配对与噪声对应
+
+这些方法值得和假负样本工作一起读，因为它们同样影响跨模态对齐；但它们主要解决“错误正例被拉近”，不能直接作为假负样本抑制方法统计。
+
+| 论文（刊会简称·年份） | 摘要与和假负样本的关系 | 代码核验 |
+| --- | --- | --- |
+| [Learning with Noisy Correspondence for Cross-modal Matching](https://proceedings.neurips.cc/paper_files/paper/2021/hash/f5e62af885293cf4d511ceef31e61c80-Abstract.html) — **NeurIPS·2021** | NCR 根据网络记忆效应划分较干净/噪声配对，再以 co-teaching 自适应校正跨模态对应；核心是**错配配对的鲁棒学习**，不是专门检测未标注语义正例。 | [作者官方 PyTorch 仓库](https://github.com/XLearning-SCU/2021-NeurIPS-NCR)。**已核验** |
+| [Deep Evidential Learning with Noisy Correspondence for Cross-Modal Retrieval](https://xlearning-lab.com/assets/2022-ACMMM-Deep-Evidential-Learning-with-Noisy-Correspondence-for-Cross-modal-Retrieval.pdf) — **ACM MM·2022** | DECL 以 Dirichlet 证据表示图文匹配不确定性，并以动态鲁棒损失处理噪声对应及困难负样本。它主要针对训练配对噪声；其不确定性/动态负例机制可作鲁棒训练参考，但不应等同于明确的假负样本标注校正。 | [作者 PyTorch 仓库](https://github.com/QinYang79/DECL)。**已核验** |
+| [Cross-Modal Retrieval With Partially Mismatched Pairs](https://pubmed.ncbi.nlm.nih.gov/37027687/) — **TPAMI·2023** | RCL 研究部分错配正配对，采用 complementary contrastive learning，优先利用更可靠的负信息来减少错误正例带来的过拟合，同时补足弱监督下的学习信号；覆盖图文和视频—文本检索。关键词中的“negative information”指训练信息来源，不表示其主要任务就是发现假负样本。 | [作者代码仓库](https://github.com/penghu-cs/RCL)。**已核验** |
+| [Cross-modal Active Complementary Learning with Self-refining Correspondence](https://papers.neurips.cc/paper_files/paper/2023/hash/4e580cdd54fe38ca9a5b8ea6fe99bb44-Abstract-Conference.html) — **NeurIPS·2023** | CRCL 用 Active Complementary Loss 降低错误监督风险，并通过多阶段自校正对应关系减少高噪声下的误差累积；重点仍是噪声配对鲁棒性，而不是纯粹的假负例筛除。 | [作者 PyTorch 仓库](https://github.com/QinYang79/CRCL)。**已核验** |
+| [Cross-modal Retrieval with Noisy Correspondence via Consistency Refining and Mining](https://pubmed.ncbi.nlm.nih.gov/38507381/) — **TIP·2024** | CREAM 区分标注对应关系与语义一致性：协同学习校正正配对，同时挖掘负例中的潜在一致性，既抑制错误正例过拟合，也利用假负例承载的一致性信息。因此它是**正负噪声一体处理**的相邻方法。 | [作者官方实现](https://github.com/XLearning-SCU/2024-TIP-CREAM)。论文与仓库均确认。**已核验** |
+| [Negative Pre-aware for Noisy Cross-Modal Matching](https://ojs.aaai.org/index.php/AAAI/article/view/28564) — **AAAI·2024** | NPC 估计每个训练样本带来的负面影响并分配置信度权重，再以 GMM 从记忆库选择高置信样本；这里的“negative impact”主要指噪声对应样本的有害训练影响，不应望文生义地理解为假负样本检测器。 | [AAAI 论文页明确给出代码](https://github.com/ZhangXu0963/NPC)。**已核验** |
+| [Noisy-Correspondence Learning for Text-to-Image Person Re-identification](https://openaccess.thecvf.com/content/CVPR2024/html/Qin_Noisy-Correspondence_Learning_for_Text-to-Image_Person_Re-identification_CVPR_2024_paper.html) — **CVPR·2024** | RDE 以双粒度嵌入的一致判断筛出较可靠训练配对，再用 Triplet Alignment Loss 对所有负例构造上界式训练信号，面向行人图文**错误对应/错配**。这是行人检索噪声监督的重要参照，但假负例不是其主要问题定义。 | [作者官方 PyTorch 仓库](https://github.com/QinYang79/RDE)。**已核验** |
+| [Learning to Rematch Mismatched Pairs for Robust Cross-Modal Retrieval](https://openaccess.thecvf.com/content/CVPR2024/html/Han_Learning_to_Rematch_Mismatched_Pairs_for_Robust_Cross-Modal_Retrieval_CVPR_2024_paper.html) — **CVPR·2024** | L2RM 以最优传输从错配样本间寻找潜在正确对应，并以 partial OT 限制错误正配对；它是**重新配对**而非抑制语义相关的假负例。 | [作者代码仓库](https://github.com/hhc1997/L2RM)。**已核验** |
+
+## 三、方法谱系与对比
+
+| 机制家族 | 代表工作 | 如何处理疑似假负例 | 优点 | 主要风险/适用条件 |
 | --- | --- | --- | --- | --- |
-| 显式负提示 / 负 exemplar | 推理输入 | 用户同时提供“要数什么”和“不要数什么”的文本或视觉样例，模型对正负提示进行区分 | 与目标外观相似的类别/属性被一起计入 | 最贴近成熟/未成熟、不同果种、果实/果帽等细粒度排除；依赖负例质量 |
-| 负 exemplar 判别学习 | 训练或特征匹配 | 正、负 exemplar 分别形成目标/非目标证据，学习更具判别性的相似度或密度响应 | 正例外观不充分导致的相似物误激活 | 可将叶片、枝条、果帽等作为困难负例；训练集必须覆盖品种与成像变化 |
-| 候选验证 / outlier removal | 推理候选阶段 | 先高召回地产生候选，再验证并剔除非目标候选 | 检测或密度响应中的离群误检 | 能改善精度，但不一定能表达用户想排除的细粒度类别 |
-| 前景/背景抑制 | 特征/空间区域 | 掩膜、显著性或语义分割压低背景区域，再计数前景 | 叶片、土壤、枝条等背景干扰 | 农业直接相关；但“果实 vs 背景”不等于“果实 A vs 相似果实 B” |
-| 正例筛选 / 负标签评测 | 输入质量控制 / 评估 | 筛掉不准的软 exemplar；或测试模型对不存在类别/干扰类是否拒绝响应 | 错误正例或语义落地失败 | 对构建果园 hard-negative benchmark 有用，但本身不一定提出负样本抑制模型 |
-| 计数数值 hard negative | 图文训练目标 | 将正确数量描述改成错误数量，要求模型偏好正确图文对 | 数量语义理解错误 | 属于“数错数量”的反事实负样本，不是“目标类别 vs 干扰类别”抑制，不能直接视作果园排除方法 |
+| 概率估计后采样/降权 | FNE、FNCS | 估计候选为假负例的概率，再改变采样或损失权重 | 保留真正困难负例，抑制强误排斥 | 相似度分布/检测线索校准不准时会误删真负例；要报告检出精度与召回 |
+| 软标签与语义扩展 | LG、CUSA、PCME++ | 用语言/单模态语义或概率嵌入补充潜在正关系 | 适合一对多、多描述及标签不完备数据 | 伪正例过多会稀释判别性；标注数据要支持多正样本验证 |
+| 关系挖掘与显式重标 | MAFA | 发现隐含跨模态边，将部分负例转为正例并平滑对比目标 | 适用于大规模图文预训练 | 关系挖掘成本、阈值及错误关联传播需评估 |
+| 多视角相似度与尾部统计 | TriSim | 图图、图文、文文三视角共同判断，极值统计识别疑似假负例 | 尤其针对遥感影像“同类场景高度相似” | 统计假设、阈值及数据域迁移可能影响识别；当前代码未确认公开 |
+| 错配正例修复 | NCR、RCL、CRCL、CREAM、NPC、RDE、L2RM | 过滤、降权、校正或重新匹配错误正配对；个别方法也利用负例中的语义一致性 | 处理网络采集数据中错标/错配监督 | 与 FN 定义不同；比较实验需分别控制 FP、FN，不能只报统一“噪声率” |
 
-## 二、会议论文：方法与代码优先
+## 四、结论与可复用的实验建议
 
-### 2.1 显式负提示、负 exemplar 与候选误检抑制
+1. **图文通用检索**：可从 FNE（概率采样）、CUSA/LG（语义软监督）、PCME++（概率嵌入）、MAFA（连接挖掘与重标）建立互补基线；不要只比较不同骨干网络。
+2. **遥感图文检索**：TriSim针对遥感场景相似而跨模态阈值容易误判的特点，提示同时纳入图像—图像、文本—文本近邻；但应以 RSICD、RSITMD 等数据单独核验，不能直接外推到自然图像。
+3. **文本行人检索**：除配对级标签外，应按身份构造多正关系；同一行人的不同图像/描述可能语义相关。FNCS 是直接假负样本方向，RDE 是噪声对应的相邻参照，二者要分开比较。
+4. **评价设计**：在合成标签噪声时分别控制假负例率与假正例率；报告检索 R@K/mR、假负例识别 Precision/Recall、真实困难负例保留率，并做阈值/伪正例比例消融。只报最终 R@1 无法判断收益来自正确抑制还是过度放宽负例。
+5. **代码复现顺序**：先跑官方仓库的原始配置，再统一骨干、批大小、候选池与噪声构造；仓库存在不等于当前依赖可运行，预训练权重、数据许可和旧版 CUDA/PyTorch 环境仍需单独核对。
 
-| 论文（刊会/年份） | 方法与中文摘要（负证据如何起作用） | 代码核验 |
-| --- | --- | --- |
-| [DAVE: A Detect-and-Verify Paradigm for Low-Shot Counting](https://openaccess.thecvf.com/content/CVPR2024/html/Pelhan_DAVE_-_A_Detect-and-Verify_Paradigm_for_Low-Shot_Counting_CVPR_2024_paper.html) — **CVPR 2024** | 低样本计数器先生成高召回候选，再通过验证器识别并移除离群候选，针对多类别图像中其他类别导致的误检和计数高估。它属于**模型自动候选验证**，并非用户输入负提示；是“先尽量找全、再排除”的代表路线。[1] | [作者官方 PyTorch 代码](https://github.com/jerpelhan/DAVE)，含推理、评测脚本与模型下载说明。**已核验。** |
-| [Zero-shot Object Counting with Good Exemplars (VA-Count)](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/812_ECCV_2024_paper.php) — **ECCV 2024** | EEM 搜索候选 exemplar，Noise Suppression Module（NSM）以对比学习区分较优与较差 exemplar，降低错误 exemplar 传播到密度图的负面作用。重点是**自动筛选/抑制噪声示例**，并非完整的用户负提示框架。[2] | [作者仓库](https://github.com/HopooLinZ/VA-Count)已公开并提供推理、训练命令；但 README 对“示例选择/训练代码即将发布”的说明与仓库当前文件/命令存在不完全一致之处。**有代码，复现前需核对脚本、权重和所需组件是否齐全。** |
-| [CountSE: Soft Exemplar Open-set Object Counting](https://openaccess.thecvf.com/content/ICCV2025/html/Liu_CountSE_Soft_Exemplar_Open-set_Object_Counting_ICCV_2025_paper.html) — **ICCV 2025** | 文本引导生成多尺度 soft exemplars，再经相似度选择与聚类过滤，减少不准确正例对开放集计数的污染。它抑制的是**错误正例 exemplar**，并不显式指定“哪些物体不要数”。[3] | [作者代码](https://github.com/pppppz22/CountSE)。ICCV 官方论文页直接给出代码入口。**已核验。** |
-| [CountGD++: Generalized Prompting for Open-World Counting](https://robots.ox.ac.uk/~vgg/publications/2026/AminiNaienib26/) — **CVPR 2026** | 将“数什么”扩展为正文本/正视觉样例，将“不要数什么”扩展为负文本/负视觉样例；还支持外部图像示例与自动生成的 pseudo-exemplars。其核心价值是推理时可明确表达排除意图，是目前最直接对应负提示交互的会议方法之一。[4] | [作者官方代码](https://github.com/niki-amini-naieni/CountGDPlusPlus)；CVPR 论文页亦列出项目与代码入口。仓库有 PyTorch 推理/训练说明。**已核验。** |
-| [CountEx: Fine-Grained Counting via Exemplars and Exclusion](https://arxiv.org/abs/2602.19432) — **ECCV 2026** | 面向外观相近类别，联合正/负文本及可选视觉 exemplar；Discriminative Query Refinement 先识别两类共享特征，再提取负类独有特征，并选择性从正查询中抑制。它与 CountGD++ 的通用负提示互补：CountEx 更强调**细粒度类间/类内区分**，并配套 CoCount（1,780 段视频、10,086 帧、97 组类别对）。[5] | [作者官方实现与 CoCount](https://github.com/bbvisual/CountEx)；[CoCount 数据集集合](https://huggingface.co/collections/BBVisual/cocount)。仓库含训练/评测代码、数据格式与模型入口。**已核验。** |
+**核心判断：** 直接假负样本方法的主线已经从“避免把高相似未配对样本作为硬负例”（FNE），发展到“发现/补足潜在正关系”（LG、CUSA、MAFA）、“用不确定性表达多重语义”（PCME++），并扩展到行人检索（FNCS）和遥感检索（TriSim）。落地时应将假负例与错误正配对分开建模；忽略这一区分会导致方法归类和实验结论失真。
 
-### 2.2 相关会议工作：负样本定义需按任务理解
+## 检索索引与核验说明
 
-| 论文（刊会/年份） | 方法与中文摘要 | 代码核验 |
-| --- | --- | --- |
-| [Teaching CLIP to Count to Ten](https://openaccess.thecvf.com/content/ICCV2023/html/Paiss_Teaching_CLIP_to_Count_to_Ten_ICCV_2023_paper.html) — **ICCV 2023** | 对图像说明自动替换数量词，构造只在数量上不同的反事实 caption，并用计数对比损失区分正确/错误数量。它是明确的 hard-negative 训练，但负例针对“数量不对”，而非“把叶子或其他果种排除”。[6] | 未核验到原作者官方代码入口；[CountCLIP](https://github.com/SforAiDl/CountCLIP)是第三方复现，不能标作原论文官方实现。 |
-| [Benchmarking Dense and Indiscernible Object Counting with Blueberries](https://proceedings.mlr.press/v306/bo26a.html) — **ICML 2026** | 提出 DIOCblueberry 与 MaskCount；CLIP 产生伪分割掩膜抑制背景，并以对比损失拉开蓝莓和叶片特征。它是本专题中与农业果实最直接相关的会议工作，但机制属于**前景/背景抑制**，目前论文页未给出模型仓库入口。[7] | [DIOCblueberry 数据集](https://huggingface.co/datasets/weihao-bo/DIOCblueberry)公开可访问；截至核验日，未从论文官方页面确认 MaskCount 模型代码仓库。**数据公开不等于模型代码已公开。** |
-
-## 三、评测基准：测“排除能力”，不等于提出新抑制模型
-
-| 论文/资源（刊会或年份） | 基准价值 | 代码/数据 |
-| --- | --- | --- |
-| [Can Current AI Models Count What We Mean, Not What They See? A Benchmark and Systematic Evaluation (PairTally)](https://arxiv.org/abs/2509.13939) — **DICTA 2025** | PairTally 以可控图像对测试细粒度计数，覆盖不同类别以及同类颜色、纹理、尺寸等差异；专门暴露模型把相似 distractor 一起计数的问题。它是诊断基准，不是负样本抑制算法。[8] | [作者基准、数据和评测代码](https://github.com/bbvisual/PairTally_Benchmark)；仓库列出 681 张配对图像、标注与多个计数器评测实现。**已核验。** |
-| [Does it Really Count? Assessing Semantic Grounding in Text-Guided Class-Agnostic Counting](https://arxiv.org/abs/2605.02752) — **arXiv 2026 预印本** | PrACo++ 提出 negative-label 与 distractor 测试，检查文本提示是否被正确落地、模型能否在类别不存在或存在干扰物时避免虚假响应。适合评价负提示模型的拒识能力；论文为评测研究，不是一个新的排除式计数器。[9] | [arXiv 关联的 PrACo 仓库](https://github.com/ciampluca/PrACo)包含基准脚本和多种模型适配。**注意：当前 README 以较早的 PrACo 基准为主，虽列有 CountGD++ 适配，但不应据此把它视为 PrACo++ 完整专属实现。** |
-
-## 四、期刊与农业直接相关补充
-
-| 论文（期刊/年份） | 方法与适用性 | 代码核验 |
-| --- | --- | --- |
-| [ConCoNet: Class-agnostic counting with positive and negative exemplars](https://www.sciencedirect.com/science/article/abs/pii/S0167865523001253) — **Pattern Recognition Letters, 2023** | 将正、负 exemplar 的相似度信息合并进 class-agnostic 计数器，可作为“显式 exemplar 排除”的早期方法基础。论文在 FSC-147 等通用计数设定验证，并非果园专用方法。[10] | 本次未确认到论文作者公开的官方代码仓库。 |
-| [PolaCount: Text-specified zero-shot object counting with pyramid polarity-aware cross-attention](https://www.sciencedirect.com/science/article/pii/S0925231225018077) — **Neurocomputing, 2025** | 在多尺度文本—视觉交叉注意力中分离正、负相关分量并组合，抑制矛盾响应；不同于输入显式负类文本/样例，它是特征计算层的 polarity-aware 机制。[11] | 本次未核验到作者代码仓库；论文页面未给出代码链接。 |
-| [Dynamic example network for class-agnostic object counting (DEN)](https://www.sciencedirect.com/science/article/pii/S0031320325006582) — **Pattern Recognition, 2026** | 迭代扩充正 exemplar，并从跨图像数据中挖掘负 exemplar，提高类无关计数的判别能力。论文讨论了苹果与果帽等易混淆示例，可作为农业负样本设计的直接启发；但不是果园专用模型。[12] | 论文称代码与模型将公开；本次尚未核验到作者可访问的正式仓库。**代码计划 ≠ 已公开代码。** |
-
-## 五、横向比较与农业迁移判断
-
-### 5.1 现有方法的互补关系
-
-- **用户能否指定不要数什么：** CountGD++、CountEx最直接。CountGD++支持正/负文本与视觉例子；CountEx通过显式抑制负类独有表征处理更细粒度的相似对象。两者的公开实现有利于构建果实排除原型。
-- **能否在没有负提示时压低误检：** DAVE使用检测后验证；VA-Count抑制质量差的 exemplar；CountSE过滤不准确的 soft positive exemplar。它们改善错误候选或错误输入，但不等价于用户指定的语义负类。
-- **最接近田间背景噪声的工作：** ICML 2026 MaskCount直接区分蓝莓与叶片并抑制背景，农业域证据更直接；但若目标是“成熟果 vs 未成熟果”或“目标品种 vs 相似品种”，背景掩膜机制仍不足以代替细粒度负提示。
-- **评测缺口：** PairTally、CoCount、PrACo++提供相似类别或语义拒识评测思路；但目前无法据此声称这些方法已在不同果园、品种、成熟阶段和视频跨帧场景中全面验证。
-
-### 5.2 对果实计数可落地的实验设计
-
-1. **按误计来源建负类，而非只标“背景”。** 建议至少区分：叶片/枝条/果柄；果帽/萼片；未成熟与成熟果；近似颜色或形状的其他果种；反光、遮挡和切块边缘伪影。农业场景里，困难负例应与正例在颜色、尺度、纹理或视角上相似。
-2. **优先验证两个互补机制。** 将 CountGD++/CountEx 作为显式负提示基线；将 DAVE 或 MaskCount 的验证/前景抑制思想作为自动排错基线。不要把它们合并成一个“负样本模型”标签。
-3. **迁移时按数据许可重建评测集。** 可从本仓库[农业果实数据集清单](fruit-counting.md#dataset-agriculture)选择 MinneApple、BlueberryDCM、DIOCblueberry 等，再增加成熟度/果种/叶片干扰的负标签。通用 CoCount/PairTally 不能替代真实果园测试。
-4. **指标同时报告计数误差和排除质量。** 除 MAE/RMSE 外，建议报告负类误计率（false inclusion）、目标漏计率（false exclusion）、按负类类别分层的 Precision/Recall，以及每株/每幅图的误计数；视频另测跨帧重复计数。强负提示可能提高排除率但误删外观变化较大的真目标，因此必须报告漏计权衡。
-5. **做负例质量与强度消融。** 比较无负例、简单背景负例、同类属性负例、跨类近邻负例；逐步改变负 exemplar 数量、相似度和文本粒度，检查是否出现过度抑制、跨品种泛化下降或视角变化失效。
-
-**综合结论：** 现有方法从“负 exemplar 学判别”（ConCoNet、VA-Count、DEN）发展到“负提示直接表达排除意图”（CountGD++、CountEx），并辅以候选验证（DAVE）和农业前景/背景抑制（MaskCount）。对于果实计数，最值得直接复用的是显式正负提示与农业背景抑制的组合；但截至本次核验，显式负提示方法在果实成熟度、果种近邻和田间视频上的专项评测仍有限，不能把通用基准结果等同于果园有效性。
-
-## 参考文献与来源
-
-[1] Pelhan et al. *DAVE – A Detect-and-Verify Paradigm for Low-Shot Counting*. CVPR 2024. [官方论文页](https://openaccess.thecvf.com/content/CVPR2024/html/Pelhan_DAVE_-_A_Detect-and-Verify_Paradigm_for_Low-Shot_Counting_CVPR_2024_paper.html) · [作者代码](https://github.com/jerpelhan/DAVE)
-
-[2] Zhu et al. *Zero-shot Object Counting with Good Exemplars*. ECCV 2024. [官方论文页](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/812_ECCV_2024_paper.php) · [作者代码](https://github.com/HopooLinZ/VA-Count)
-
-[3] Liu et al. *CountSE: Soft Exemplar Open-set Object Counting*. ICCV 2025. [CVF论文页](https://openaccess.thecvf.com/content/ICCV2025/html/Liu_CountSE_Soft_Exemplar_Open-set_Object_Counting_ICCV_2025_paper.html) · [作者代码](https://github.com/pppppz22/CountSE)
-
-[4] Amini-Naieni & Zisserman. *CountGD++: Generalized Prompting for Open-World Counting*. CVPR 2026. [Oxford/VGG论文页](https://robots.ox.ac.uk/~vgg/publications/2026/AminiNaienib26/) · [作者代码](https://github.com/niki-amini-naieni/CountGDPlusPlus)
-
-[5] Huang et al. *CountEx: Fine-Grained Counting via Exemplars and Exclusion*. ECCV 2026. [arXiv论文页](https://arxiv.org/abs/2602.19432) · [作者代码与 CoCount](https://github.com/bbvisual/CountEx)
-
-[6] Paiss et al. *Teaching CLIP to Count to Ten*. ICCV 2023. [CVF论文页](https://openaccess.thecvf.com/content/ICCV2023/html/Paiss_Teaching_CLIP_to_Count_to_Ten_ICCV_2023_paper.html) · [第三方复现 CountCLIP](https://github.com/SforAiDl/CountCLIP)
-
-[7] Bo et al. *Benchmarking Dense and Indiscernible Object Counting with Blueberries*. ICML 2026, PMLR 306. [PMLR论文页](https://proceedings.mlr.press/v306/bo26a.html) · [DIOCblueberry数据](https://huggingface.co/datasets/weihao-bo/DIOCblueberry)
-
-[8] Nguyen et al. *Can Current AI Models Count What We Mean, Not What They See? A Benchmark and Systematic Evaluation*. DICTA 2025. [arXiv论文页](https://arxiv.org/abs/2509.13939) · [作者基准与代码](https://github.com/bbvisual/PairTally_Benchmark)
-
-[9] Pacini et al. *Does it Really Count? Assessing Semantic Grounding in Text-Guided Class-Agnostic Counting*. arXiv 2026. [论文页](https://arxiv.org/abs/2605.02752) · [作者评测代码](https://github.com/ciampluca/PrACo)
-
-[10] Soliven et al. *ConCoNet: Class-agnostic counting with positive and negative exemplars*. Pattern Recognition Letters 171 (2023), 148–154. [出版社论文页](https://www.sciencedirect.com/science/article/abs/pii/S0167865523001253)
-
-[11] Qian et al. *PolaCount: Text-specified zero-shot object counting with pyramid polarity-aware cross-attention*. Neurocomputing 652 (2025), 131135. [出版社论文页](https://www.sciencedirect.com/science/article/pii/S0925231225018077)
-
-[12] Liu et al. *Dynamic example network for class-agnostic object counting*. Pattern Recognition 170 (2026), 111998. [出版社论文页](https://www.sciencedirect.com/science/article/pii/S0031320325006582)
+- [Awesome-Noisy-Correspondence](https://github.com/XLearning-SCU/Awesome-Noisy-Correspondence)：用于扩展噪声对应方向的候选文献；本页关键结论以论文/出版社页面和作者代码仓库复核。
+- [Awesome-Text-Image-Person-Retrieval](https://github.com/Yifei-AHU/Awesome-Text-Image-Person-Retrieval)：用于发现文本行人检索相关候选；会议归属、摘要与代码状态仍以论文页及作者仓库为准。
+- 对“本次未找到代码”的论文，表示截至上述日期、经论文官方页与作者关联仓库检索后没有确认入口；不将第三方复现、同名仓库或非官方汇总页计作作者代码。
