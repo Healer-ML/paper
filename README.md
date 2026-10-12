@@ -1091,7 +1091,7 @@
 ## 03 · 微表情识别
 
 <details>
-<summary><strong>展开年度目录 · 1 篇（2021–2026）</strong></summary>
+<summary><strong>展开年度目录 · 22 篇（2021–2026）</strong></summary>
 
 **按年直达：** [2021](#micro-year-2021) · [2022](#micro-year-2022) · [2023](#micro-year-2023) · [2024](#micro-year-2024) · [2025](#micro-year-2025) · [2026](#micro-year-2026)
 
@@ -1124,16 +1124,76 @@
 </details>
 
 <details id="micro-year-2025">
-<summary>2025 · 0 篇</summary>
+<summary>2025 · 11 篇</summary>
 
-该年份暂无已收录论文。
+### 时空运动表征与多尺度特征建模 · 6 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [High-level LoRA and Hierarchical Fusion for Enhanced Micro-Expression Recognition](https://doi.org/10.1007/s00371-024-03676-w) | 将视觉基础模型的高层 LoRA 微调与层级融合结合，聚合帧间及时空特征，以较少可训练参数提升微表情识别。 | The Visual Computer | [Code](https://github.com/CYF-cuber/HLoRA_MER_dinov2) |
+| [MOL: Joint Estimation of Micro-Expression, Optical Flow, and Landmark via Transformer-Graph-Style Convolution](https://arxiv.org/abs/2506.14511) | 以原始帧端到端学习局部—全局特征，并联合微表情识别、光流估计与人脸关键点检测。 | TPAMI | [Code](https://github.com/CYF-cuber/MOL) |
+| [Micro-Expression Recognition via Fine-Grained Dynamic Perception](https://doi.org/10.1145/3765901) | 以局部—全局 Transformer 和排序池化提取动态表示，并用动态影像辅助任务缓解小样本问题。 | ACM TOMM | [Code](https://github.com/CYF-cuber/FDP) |
+| [Entire-detail Motion Dual-Branch Network for Micro-Expression Recognition](https://doi.org/10.1016/j.patrec.2025.01.021) | 双分支分别建模整体运动与局部细节运动，结合累积注意力聚焦关键面部区域。 | PRL | [Code](https://github.com/likemby/EDMDBN) |
+| [HFA-Net: Hierarchical Feature Aggregation Network for Micro-Expression Recognition](https://doi.org/10.1007/s40747-025-01804-0) | 局部分支提取多尺度细微变化，全局分支建模面部结构关系，再跨层聚合融合。 | C&IS | [Code](https://github.com/tairuwu/HFA-Net) |
+| [M³ENet: A Multi-Modal Fusion Network for Efficient Micro-Expression Recognition](https://doi.org/10.3390/s25206276) | 融合关键帧 RGB 外观与多类光流，并用增强和 focal loss 应对小样本与类别不平衡。 | Sensors | [Code](https://github.com/xuanyv/M3ENet) |
+
+### AU 先验、语义对齐与多模态理解 · 3 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [FED-PsyAU: Privacy-Preserving Micro-Expression Recognition via Psychological AU Coordination and Dynamic Facial Motion Modeling](https://openaccess.thecvf.com/content/ICCV2025/html/Li_FED-PsyAU_Privacy-Preserving_Micro-Expression_Recognition_via_Psychological_AU_Coordination_and_Dynamic_ICCV_2025_paper.html) | 将上下脸动作单元协同先验融入分层图注意力，并在联邦学习中跨客户端训练。 | ICCV | [Code](https://github.com/MELABIPCAS/FED-PsyAU) |
+| [MER-CLIP: AU-Guided Vision-Language Alignment for Micro-Expression Recognition](https://doi.org/10.1109/TAFFC.2025.3584918) | 将 AU 转写为面部运动描述，与视频表征做 CLIP 式跨模态对齐，并加入情绪推断和面部混合增强。 | TAFFC | [Code](https://github.com/Liusff/MER-CLIP) |
+| [MELLM: Exploring LLM-Powered Micro-Expression Understanding Enhanced by Subtle Motion Perception](https://arxiv.org/abs/2505.07007) | 融合 onset–apex 光流与灰度帧，结合多模态大模型探索细粒度微表情理解。 | arXiv | [Code](https://github.com/zyzhangUstc/MELLM) |
+
+### 关键帧鲁棒性 · 1 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [Rethinking Key-frame-based Micro-expression Recognition: A Robust and Accurate Framework Against Key-frame Errors](https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_Rethinking_Key-frame-based_Micro-expression_Recognition_A_Robust_and_Accurate_Framework_Against_ICCV_2025_paper.html) | 以完整序列和 AU 相关运动建模降低关键帧标注误差影响，提升微表情识别鲁棒性。 | ICCV | [Code](https://github.com/tony19980810/CausalNet) |
+
+### 联合定位与识别 · 1 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [Boosting Micro-Expression Analysis via Prior-Guided Video-Level Regression](https://doi.org/10.1145/3746027.3762026) | 以视频级回归统一微表情定位与识别，按时间演化和持续时长选择区间，并共享任务表征。 | ACM MM | [Code](https://github.com/zizheng-guo/BoostingVRME) |
 
 </details>
 
 <details id="micro-year-2026">
-<summary>2026 · 1 篇</summary>
+<summary>2026 · 11 篇</summary>
 
-1. **[SOFP: Capturing Subtle Facial Dynamics with Symmetric Optical Flow Perception for Micro-Expression Recognition](https://doi.org/10.1016/j.patcog.2026.113199)** — *Pattern Recogn.* (2026)。将光流划分为四个双侧对称面部区域，以注意力编码器提取局部与全局运动；通过对称区域感知融合模块建模区域一致性和交互关系，在多个微表情数据库上评测。**Code：[MER](https://github.com/Healer-ML/MER)。**
+### 动态运动建模与高效识别 · 6 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [Temporal–Spatial Cross-Fusion for Dynamic Micro Expression Recognition](https://doi.org/10.1016/j.patcog.2026.113715) | 结合 RetNet 与 Transformer 并行融合时空特征，显式建模微表情发生位置及其变化。 | Pattern Recogn. | [Code](https://github.com/Cross-Innovation-Lab/TSFmicro) |
+| [DBDE-Net: Dual-Branch Detail-Enhanced Network for Micro-Expression Recognition](https://doi.org/10.1016/j.neucom.2026.133167) | 双支路分别建模 onset–apex 局部细节与完整序列，并用运动注意力增强弱纹理。 | Neurocomputing | [Code](https://github.com/Binghr-08/DBDENet) |
+| [MPFNet: A Multi-Prior Fusion Network with a Progressive Training Strategy for Micro-Expression Recognition](https://doi.org/10.1109/TAFFC.2025.3617652) | 以 I3D 和坐标注意力双编码器逐步融合多类先验，提供并行与层级两种融合策略。 | TAFFC | [Code](https://github.com/Mac0504/MPFNet) |
+| [Modeling the Evolution Dynamics to Enhance Micro-Expression Recognition](https://doi.org/10.1007/s11704-025-40976-3) | 用 Transformer 建模完整表情序列的动态演化，并结合光流、面部校正和 AU 区域定位。 | Front. Comput. Sci. | [Code](https://github.com/hitheyuhong/TA_MER_FOR_CCAC) |
+| [Micro-expression Recognition Based on Adaptive Amplification of Dynamic Weak Texture Information](https://doi.org/10.1016/j.cviu.2026.104904) | 自适应放大微表情弱纹理，再用多尺度通道—空间模块提取局部细节完成分类。 | CVIU | [Code](https://github.com/cxhwxhn/AA-DWT-MER) |
+| [SOFP: Capturing Subtle Facial Dynamics with Symmetric Optical Flow Perception for Micro-Expression Recognition](https://doi.org/10.1016/j.patcog.2026.113199) | 将光流划分为双侧对称区域，以注意力编码局部与全局运动，并融合区域关系。 | Pattern Recogn. | [Code](https://github.com/Healer-ML/MER) |
+
+### AU 语义、文本—视觉对齐与动作编码 · 1 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [From Pixels to Semantics: Unified Facial Action Representation Learning for Micro-Expression Analysis](https://proceedings.iclr.cc/paper_files/paper/2026/hash/ac56fb3fab015124b541f6299016a21c-Abstract-Conference.html) | 以离散面部动作 token 表示像素运动，并用稀疏 Transformer 与情绪文本锚点辅助识别。 | ICLR | [Code（部分实现）](https://github.com/KinopioIsAllIn/D-FACE) |
+
+### 标注质量与识别可靠性 · 2 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [Evaluating and Correcting Human Annotation Bias in Dynamic Micro-Expression Recognition](https://doi.org/10.1109/TAFFC.2026.3671731) | 根据完整序列重选关键帧，评估并缓解人工标注偏差，提供多数据集训练实现。 | TAFFC | [Code](https://github.com/Cross-Innovation-Lab/GAMDSS) |
+| [Where and How Well: Reliability-Guided Dual-View Displacement Learning for Micro-Expression Recognition](https://github.com/cszyzhang/DVAW) | 联合学习 onset→apex 与 offset→apex 位移并预测可靠性，以双视角形变增强识别。 | ACM MM* | [Code（含权重/评测材料）](https://github.com/cszyzhang/DVAW) |
+
+### 长视频定位识别与持续/增量学习 · 2 篇
+
+| 论文题目 | 摘要（中文释义） | 刊会简称 | 代码 |
+| --- | --- | --- | --- |
+| [ME-TST+: Micro-Expression Analysis via Temporal State Transition With ROI Relationship Awareness](https://doi.org/10.1109/TCSVT.2026.3682021) | 以视频级回归处理长视频，结合多粒度 ROI 与 SlowFast-Mamba 联合优化定位和情绪识别。 | TCSVT | [Code](https://github.com/zizheng-guo/ME-TST) |
+| [Incremental Micro-Expression Recognition: A Benchmark](https://doi.org/10.1109/TAFFC.2026.3680615) | 建立微表情增量识别协议和六类基线，评估持续适应新数据及保留旧知识的能力。 | TAFFC | [Code](https://github.com/ZhengQinLai/IMER-benchmark) |
+
+> *DVAW 的 ACM MM 2026 venue 信息按作者仓库核验；截至检索日未找到可独立核对的 ACM DL 条目。D-FACE 仓库实现尚不完整，详见[专题页](papers/micro-expression-recognition.md)。*
 
 </details>
 
