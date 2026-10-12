@@ -36,4 +36,4 @@
 
 **导航：** [论文目录](micro-expression-recognition.md#论文目录) · [数据集与采集信息](micro-expression-recognition.md#数据集与采集信息) · [专题首页](micro-expression-recognition.md)
 
-当前收录 SOFP（Pattern Recogn., 2026），并持续整理相关数据集与采集设置。
+除保留 SOFP（Pattern Recogn., 2026）原条目外，已按方法方向补充 2025 年 11 篇、2026 年 10 篇有代码论文；另列出代码尚未核验的高相关工作，并标注不完整实现与 venue 核验边界。
